@@ -21,7 +21,7 @@
  
  */
 
-void encryptDecryptMessage(String key, String inputText, String outputText)
+void encryptDecryptMessage(String userKey, String inputText, String outputText)
 {
     int  keyNumber = 1;
     
@@ -29,8 +29,10 @@ void encryptDecryptMessage(String key, String inputText, String outputText)
     char Key2[ASCII_RANGE_SIZE_94] = {0};
     char Key3[ASCII_RANGE_SIZE_94] = {0};
     
+    char InputCharacter1, InputCharacter2, InputCharacter3;
+    
     // Turn key into a number
-    wordToNumberConverter(keyNumber, key);
+    wordToNumberConverter(keyNumber, userKey);
     
     // Seed number for my random number generator
     srand(keyNumber);
@@ -48,11 +50,31 @@ void encryptDecryptMessage(String key, String inputText, String outputText)
     runThroughRandomNumbers(keyNumber);
     
     fillKey(Key3);
+    
+    // encrypt messages
+    for (int i = 0; i < inputText.length(); i++)
+    {
+        InputCharacter1 = encryptMessage(userKey, inputText[i]);
+        InputCharacter2 = encryptMessage(Key1, InputCharacter1);
+        InputCharacter3 = encryptMessage(Key2, InputCharacter2);
+        
+        outputText += encryptMessage(Key3, InputCharacter3);
+    }
+
+    // decrypt messages
+    for (int i = 0; i < inputText.length(); i++)
+    {
+        InputCharacter1 = decryptMessage(userKey, inputText[i]);
+        InputCharacter2 = decryptMessage(Key1, InputCharacter1);
+        InputCharacter3 = encryptMessage(Key2, InputCharacter2);
+        
+        outputText += decryptMessage(Key3, InputCharacter3);
+    }
 }
 
 void wordToNumberConverter(int &keyNum, String &key)
 {
-    for (int i = 0; key[i] != '\n'; i++)
+    for (int i = 0; i < key.length(); i++)
     {
         keyNum += (int) key[i];
         keyNum += i;
@@ -61,8 +83,7 @@ void wordToNumberConverter(int &keyNum, String &key)
 
 void runThroughRandomNumbers(int keyNum)
 {
-    /* CYCLES THROUGH RANDOM NUMBERS RANDOMLY */
-    
+    // Cycles through random numbers randomly
     int LoopLimit = rand() / keyNum;
     
     for (int i = 0; i <= LoopLimit; ++i)

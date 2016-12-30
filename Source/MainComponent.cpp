@@ -77,6 +77,16 @@ MainComponent::MainComponent ()
     swapText->setConnectedEdges (Button::ConnectedOnLeft | Button::ConnectedOnRight);
     swapText->addListener (this);
 
+    addAndMakeVisible (decryptionModeToggle = new ToggleButton ("decryptionModeToggle"));
+    decryptionModeToggle->setButtonText (TRANS("Decrypt"));
+    decryptionModeToggle->addListener (this);
+    decryptionModeToggle->setColour (ToggleButton::textColourId, Colours::white);
+
+    addAndMakeVisible (encryptionModeToggle = new ToggleButton ("encryptionModeToggle2"));
+    encryptionModeToggle->setButtonText (TRANS("Encrypt"));
+    encryptionModeToggle->addListener (this);
+    encryptionModeToggle->setColour (ToggleButton::textColourId, Colours::white);
+
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -85,6 +95,9 @@ MainComponent::MainComponent ()
 
 
     //[Constructor] You can add your own custom stuff here..
+    
+    encryptionModeToggle->setToggleState(true, dontSendNotification);
+    
     //[/Constructor]
 }
 
@@ -99,6 +112,8 @@ MainComponent::~MainComponent()
     encryptDecryptText = nullptr;
     clearText = nullptr;
     swapText = nullptr;
+    decryptionModeToggle = nullptr;
+    encryptionModeToggle = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -126,8 +141,10 @@ void MainComponent::resized()
     outputTextEditor->setBounds (8, 200, 336, 136);
     keyTextEditor->setBounds (8, 8, 336, 40);
     encryptDecryptText->setBounds (348, 56, 147, 135);
-    clearText->setBounds (348, 200, 147, 135);
-    swapText->setBounds (348, 6, 147, 42);
+    clearText->setBounds (348, 270, 147, 66);
+    swapText->setBounds (348, 198, 147, 66);
+    decryptionModeToggle->setBounds (348, 30, 75, 24);
+    encryptionModeToggle->setBounds (348, 6, 75, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -179,11 +196,41 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 
         // swap fields
         tempHolderForSwap = inputTextEditor->getText();
-
         inputTextEditor->setText(outputTextEditor->getText());
         outputTextEditor->setText(tempHolderForSwap);
+        
+        // swap encrypt / decrypt mode
+        if (encryptionModeToggle->getToggleState())
+        {
+            encryptionModeToggle->setToggleState(false, dontSendNotification);
+            decryptionModeToggle->setToggleState(true, dontSendNotification);
+        }
+        
+        else
+        {
+            encryptionModeToggle->setToggleState(true, dontSendNotification);
+            decryptionModeToggle->setToggleState(false, dontSendNotification);
+        }
 
         //[/UserButtonCode_swapText]
+    }
+    else if (buttonThatWasClicked == decryptionModeToggle)
+    {
+        //[UserButtonCode_decryptionModeToggle]
+
+        // turn other mode off
+        encryptionModeToggle->setToggleState(false, dontSendNotification);
+
+        //[/UserButtonCode_decryptionModeToggle]
+    }
+    else if (buttonThatWasClicked == encryptionModeToggle)
+    {
+        //[UserButtonCode_encryptionModeToggle]
+        
+        // turn other mode off
+        decryptionModeToggle->setToggleState(false, dontSendNotification);
+        
+        //[/UserButtonCode_encryptionModeToggle]
     }
 
     //[UserbuttonClicked_Post]
@@ -226,11 +273,19 @@ BEGIN_JUCER_METADATA
               virtualName="" explicitFocusOrder="0" pos="348 56 147 135" buttonText="Encrypt / Decrypt Text"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="c83123a33c17aff6" memberName="clearText"
-              virtualName="" explicitFocusOrder="0" pos="348 200 147 135" buttonText="Clear Text"
+              virtualName="" explicitFocusOrder="0" pos="348 270 147 66" buttonText="Clear Text"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="3966e441c06b33be" memberName="swapText"
-              virtualName="" explicitFocusOrder="0" pos="348 6 147 42" buttonText="Swap Text"
+              virtualName="" explicitFocusOrder="0" pos="348 198 147 66" buttonText="Swap Text"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
+  <TOGGLEBUTTON name="decryptionModeToggle" id="eb69d3a92b08680f" memberName="decryptionModeToggle"
+                virtualName="" explicitFocusOrder="0" pos="348 30 75 24" txtcol="ffffffff"
+                buttonText="Decrypt" connectedEdges="0" needsCallback="1" radioGroupId="0"
+                state="0"/>
+  <TOGGLEBUTTON name="encryptionModeToggle2" id="feb87990a59e0b0d" memberName="encryptionModeToggle"
+                virtualName="" explicitFocusOrder="0" pos="348 6 75 24" txtcol="ffffffff"
+                buttonText="Encrypt" connectedEdges="0" needsCallback="1" radioGroupId="0"
+                state="0"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

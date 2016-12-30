@@ -69,6 +69,8 @@ private:
     ScopedPointer<TextButton> encryptDecryptText;
     ScopedPointer<TextButton> clearText;
     ScopedPointer<TextButton> swapText;
+    ScopedPointer<ToggleButton> decryptionModeToggle;
+    ScopedPointer<ToggleButton> encryptionModeToggle;
 
 
     //==============================================================================
