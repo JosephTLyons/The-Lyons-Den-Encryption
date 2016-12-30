@@ -19,6 +19,9 @@
  
  change JTL encryption into a class and clean up code heavily
  if neigther option is selected, output "please select a mode"
+ have text disappear when clicking the mouse on it
+ tool tips
+ option for secret input of message?
  
  */
 

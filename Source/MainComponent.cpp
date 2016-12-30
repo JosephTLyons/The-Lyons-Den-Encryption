@@ -73,6 +73,7 @@ MainComponent::MainComponent ()
     clearText->addListener (this);
 
     addAndMakeVisible (swapText = new TextButton ("new button"));
+    swapText->setTooltip (TRANS("Swap Text is handy for testing purposes, to reassure that the encryption is working both ways."));
     swapText->setButtonText (TRANS("Swap Text"));
     swapText->setConnectedEdges (Button::ConnectedOnLeft | Button::ConnectedOnRight);
     swapText->addListener (this);
@@ -93,6 +94,7 @@ MainComponent::MainComponent ()
     copyToClipboard->addListener (this);
 
     addAndMakeVisible (pasteToInput = new TextButton ("pasteToInput"));
+    pasteToInput->setTooltip (TRANS("Paste clipboard to input"));
     pasteToInput->setButtonText (TRANS("Paste"));
     pasteToInput->setConnectedEdges (Button::ConnectedOnLeft | Button::ConnectedOnRight);
     pasteToInput->addListener (this);
@@ -175,7 +177,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     if (buttonThatWasClicked == encryptDecryptText)
     {
         //[UserButtonCode_encryptDecryptText] -- add your button handler code here..
-        
+
         // clear output and input to start with blank strings
         outputTextString.clear();
         inputTextString.clear();
@@ -196,7 +198,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 
         // set output text editor to new text
         outputTextEditor->setText(outputTextString);
-        
+
         //[/UserButtonCode_encryptDecryptText]
     }
     else if (buttonThatWasClicked == clearText)
@@ -253,25 +255,25 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     }
     else if (buttonThatWasClicked == copyToClipboard)
     {
-        //[UserButtonCode_copyToClipboard]
-        
+        //[UserButtonCode_copyToClipboard] -- add your button handler code here..
+
         // copy text from output to clipboard
         SystemClipboard::copyTextToClipboard(outputTextEditor->getText());
-        
+
         //[/UserButtonCode_copyToClipboard]
     }
     else if (buttonThatWasClicked == pasteToInput)
     {
         //[UserButtonCode_pasteToInput] -- add your button handler code here..
-        
+
         // // paste text from clipboard to input
         inputTextEditor->setText(SystemClipboard::getTextFromClipboard());
-        
+
         // change modes for a paste (its assumed that a paste means the user wants to decrypt
         decryptionModeToggle->setToggleState(true, dontSendNotification);
         encryptionModeToggle->setToggleState(false, dontSendNotification);
-        
-        
+
+
         //[/UserButtonCode_pasteToInput]
     }
 
@@ -318,8 +320,8 @@ BEGIN_JUCER_METADATA
               virtualName="" explicitFocusOrder="0" pos="348 292 147 45" buttonText="Clear Text"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="3966e441c06b33be" memberName="swapText"
-              virtualName="" explicitFocusOrder="0" pos="348 200 147 45" buttonText="Swap Text"
-              connectedEdges="3" needsCallback="1" radioGroupId="0"/>
+              virtualName="" explicitFocusOrder="0" pos="348 200 147 45" tooltip="Swap Text is handy for testing purposes, to reassure that the encryption is working both ways."
+              buttonText="Swap Text" connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TOGGLEBUTTON name="decryptionModeToggle" id="eb69d3a92b08680f" memberName="decryptionModeToggle"
                 virtualName="" explicitFocusOrder="0" pos="420 6 75 24" txtcol="ffffffff"
                 buttonText="Decrypt" connectedEdges="0" needsCallback="1" radioGroupId="0"
@@ -332,8 +334,8 @@ BEGIN_JUCER_METADATA
               virtualName="" explicitFocusOrder="0" pos="348 246 73 45" buttonText="Copy"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="pasteToInput" id="7be5641456548145" memberName="pasteToInput"
-              virtualName="" explicitFocusOrder="0" pos="422 246 73 45" buttonText="Paste"
-              connectedEdges="3" needsCallback="1" radioGroupId="0"/>
+              virtualName="" explicitFocusOrder="0" pos="422 246 73 45" tooltip="Paste clipboard to input"
+              buttonText="Paste" connectedEdges="3" needsCallback="1" radioGroupId="0"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

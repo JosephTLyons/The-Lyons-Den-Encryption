@@ -60,6 +60,9 @@ private:
     String inputTextString;
     String outputTextString;
 
+    // simply added to engage tool tips
+    TooltipWindow toolTips;
+
     //[/UserVariables]
 
     //==============================================================================
