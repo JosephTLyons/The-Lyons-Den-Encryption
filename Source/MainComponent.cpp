@@ -33,7 +33,7 @@ MainComponent::MainComponent ()
     //[/Constructor_pre]
 
     addAndMakeVisible (inputText = new TextEditor ("inputText"));
-    inputText->setMultiLine (false);
+    inputText->setMultiLine (true);
     inputText->setReturnKeyStartsNewLine (false);
     inputText->setReadOnly (false);
     inputText->setScrollbarsShown (true);
@@ -42,7 +42,7 @@ MainComponent::MainComponent ()
     inputText->setText (TRANS("Input Text Here"));
 
     addAndMakeVisible (outputEncryptedText = new TextEditor ("new text editor"));
-    outputEncryptedText->setMultiLine (false);
+    outputEncryptedText->setMultiLine (true);
     outputEncryptedText->setReturnKeyStartsNewLine (false);
     outputEncryptedText->setReadOnly (false);
     outputEncryptedText->setScrollbarsShown (true);
@@ -51,7 +51,7 @@ MainComponent::MainComponent ()
     outputEncryptedText->setText (TRANS("Encrypted Text Ouputs Here"));
 
     addAndMakeVisible (keyText = new TextEditor ("keyText"));
-    keyText->setMultiLine (false);
+    keyText->setMultiLine (true);
     keyText->setReturnKeyStartsNewLine (false);
     keyText->setReadOnly (false);
     keyText->setScrollbarsShown (true);
@@ -132,9 +132,9 @@ void MainComponent::resized()
 void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 {
     //[UserbuttonClicked_Pre]
-    
+
     String tempHolderForSwap;
-    
+
     //[/UserbuttonClicked_Pre]
 
     if (buttonThatWasClicked == encryptDecryptText)
@@ -151,17 +151,23 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         inputText->clear();
         outputEncryptedText->clear();
 
+        // reset text
+        keyText->setText("Input Key Here");
+        inputText->setText("Input Text Here");
+        outputEncryptedText->setText("Encrypted Text Ouputs Here");
+
         //[/UserButtonCode_clearText]
     }
     else if (buttonThatWasClicked == swapText)
     {
-        //[UserButtonCode_swapText]
-        
+        //[UserButtonCode_swapText] -- add your button handler code here..
+
         // swap fields
         tempHolderForSwap = inputText->getText();
+
         inputText->setText(outputEncryptedText->getText());
         outputEncryptedText->setText(tempHolderForSwap);
-        
+
         //[/UserButtonCode_swapText]
     }
 
@@ -192,15 +198,15 @@ BEGIN_JUCER_METADATA
   <BACKGROUND backgroundColour="ff000000"/>
   <TEXTEDITOR name="inputText" id="cd5cf2088e4b8391" memberName="inputText"
               virtualName="" explicitFocusOrder="0" pos="8 56 336 136" initialText="Input Text Here"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
+              multiline="1" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <TEXTEDITOR name="new text editor" id="20825e2d4e657e11" memberName="outputEncryptedText"
               virtualName="" explicitFocusOrder="0" pos="8 200 336 136" initialText="Encrypted Text Ouputs Here"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
+              multiline="1" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <TEXTEDITOR name="keyText" id="b5d11893eb6accf3" memberName="keyText" virtualName=""
               explicitFocusOrder="0" pos="8 8 336 40" initialText="Input Key Here"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
+              multiline="1" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <TEXTBUTTON name="new button" id="3bbb40b8fcf75027" memberName="encryptDecryptText"
               virtualName="" explicitFocusOrder="0" pos="348 56 147 135" buttonText="Encrypt / Decrypt Text"
