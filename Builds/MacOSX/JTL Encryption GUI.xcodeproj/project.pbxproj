@@ -22,8 +22,7 @@
 		7A0599574579B6231CBE08DD /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53C8104C9C9A6F2ACB97EF95 /* WebKit.framework */; };
 		7AD0D651A77D4490818DB560 /* juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF05A3D6F1AE3A21587D613E /* juce_events.mm */; };
 		9674C18DAB5B9BEC2E2A5554 /* DiscRecording.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 137DA793D1CEA0189DEAEC6B /* DiscRecording.framework */; };
-		99AD95AB1E15B7CC00749B52 /* encryption.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99AD95A71E15B7CC00749B52 /* encryption.cpp */; };
-		99AD95AC1E15B7CC00749B52 /* key.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99AD95A91E15B7CC00749B52 /* key.cpp */; };
+		9939EDDF1E16637800E047F4 /* JTL Encryption.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9939EDDD1E16637800E047F4 /* JTL Encryption.cpp */; };
 		9CB315CC0F6E614ECC78AE39 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 9BEDE2068EE5352008E6670A /* RecentFilesMenuTemplate.nib */; };
 		A441A6E8896540055D1553C3 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BBFE7E64E18DD03C2077478 /* Main.cpp */; };
 		BDD931D402145D63D45B4A13 /* juce_video.mm in Sources */ = {isa = PBXBuildFile; fileRef = 938C27700A177268BCA2FCD0 /* juce_video.mm */; };
@@ -732,13 +731,11 @@
 		9865353A191AF8086F0BBAE0 /* juce_RelativeParallelogram.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_RelativeParallelogram.cpp; path = ../../../../Libraries/JUCE/modules/juce_gui_basics/positioning/juce_RelativeParallelogram.cpp; sourceTree = SOURCE_ROOT; };
 		989B764F2A22564EACF0C056 /* juce_linux_Midi.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_linux_Midi.cpp; path = ../../../../Libraries/JUCE/modules/juce_audio_devices/native/juce_linux_Midi.cpp; sourceTree = SOURCE_ROOT; };
 		98C21000B89AB3F972CA3AB9 /* juce_win32_CameraDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_win32_CameraDevice.cpp; path = ../../../../Libraries/JUCE/modules/juce_video/native/juce_win32_CameraDevice.cpp; sourceTree = SOURCE_ROOT; };
+		9939EDDD1E16637800E047F4 /* JTL Encryption.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "JTL Encryption.cpp"; path = "../../Source/JTL Encryption.cpp"; sourceTree = "<group>"; };
+		9939EDDE1E16637800E047F4 /* JTL Encryption.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = "JTL Encryption.hpp"; path = "../../Source/JTL Encryption.hpp"; sourceTree = "<group>"; };
 		99539A1B7358D8208A1A2D67 /* juce_RuntimePermissions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_RuntimePermissions.h; path = ../../../../Libraries/JUCE/modules/juce_core/misc/juce_RuntimePermissions.h; sourceTree = SOURCE_ROOT; };
 		995675687CFF35958C39424C /* juce_ReadWriteLock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_ReadWriteLock.cpp; path = ../../../../Libraries/JUCE/modules/juce_core/threads/juce_ReadWriteLock.cpp; sourceTree = SOURCE_ROOT; };
 		996925DC00E9DC68B74D61F9 /* juce_TimeSliceThread.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_TimeSliceThread.cpp; path = ../../../../Libraries/JUCE/modules/juce_core/threads/juce_TimeSliceThread.cpp; sourceTree = SOURCE_ROOT; };
-		99AD95A71E15B7CC00749B52 /* encryption.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = encryption.cpp; path = ../../Source/encryption.cpp; sourceTree = "<group>"; };
-		99AD95A81E15B7CC00749B52 /* encryption.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = encryption.hpp; path = ../../Source/encryption.hpp; sourceTree = "<group>"; };
-		99AD95A91E15B7CC00749B52 /* key.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = key.cpp; path = ../../Source/key.cpp; sourceTree = "<group>"; };
-		99AD95AA1E15B7CC00749B52 /* key.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = key.hpp; path = ../../Source/key.hpp; sourceTree = "<group>"; };
 		99CEB91FACC2CF3D9150289F /* juce_core.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_core.mm; path = ../../JuceLibraryCode/juce_core.mm; sourceTree = SOURCE_ROOT; };
 		9A0B644F0E920BF18306E790 /* juce_BigInteger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_BigInteger.cpp; path = ../../../../Libraries/JUCE/modules/juce_core/maths/juce_BigInteger.cpp; sourceTree = SOURCE_ROOT; };
 		9A12E7846102FA3AFCBDFCF8 /* juce_PropertiesFile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_PropertiesFile.cpp; path = ../../../../Libraries/JUCE/modules/juce_data_structures/app_properties/juce_PropertiesFile.cpp; sourceTree = SOURCE_ROOT; };
@@ -2240,10 +2237,8 @@
 				2BBFE7E64E18DD03C2077478 /* Main.cpp */,
 				B5DAF397BB88E2E4579EA281 /* MainComponent.h */,
 				72DC539F051CF76C8A63B6EA /* MainComponent.cpp */,
-				99AD95A81E15B7CC00749B52 /* encryption.hpp */,
-				99AD95A71E15B7CC00749B52 /* encryption.cpp */,
-				99AD95AA1E15B7CC00749B52 /* key.hpp */,
-				99AD95A91E15B7CC00749B52 /* key.cpp */,
+				9939EDDE1E16637800E047F4 /* JTL Encryption.hpp */,
+				9939EDDD1E16637800E047F4 /* JTL Encryption.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -3453,13 +3448,12 @@
 				EF1CDF4F507BBD309FDF2D58 /* juce_audio_formats.mm in Sources */,
 				C14462DA7A75E21163218792 /* juce_audio_processors.mm in Sources */,
 				E1308FCBE54808F8B22594EF /* juce_core.mm in Sources */,
-				99AD95AC1E15B7CC00749B52 /* key.cpp in Sources */,
 				CAF085872569C5DED5FF6E38 /* juce_cryptography.mm in Sources */,
 				42CE1ACDAA79282B748CE4DC /* juce_data_structures.mm in Sources */,
 				7AD0D651A77D4490818DB560 /* juce_events.mm in Sources */,
-				99AD95AB1E15B7CC00749B52 /* encryption.cpp in Sources */,
 				2A17D927C6409253623BC9B1 /* juce_graphics.mm in Sources */,
 				FB8EEA2BE99BE0A53FEA16C8 /* juce_gui_basics.mm in Sources */,
+				9939EDDF1E16637800E047F4 /* JTL Encryption.cpp in Sources */,
 				F59BA093760652432C1054AF /* juce_gui_extra.mm in Sources */,
 				CB29602D3F00628F7D868901 /* juce_opengl.mm in Sources */,
 				BDD931D402145D63D45B4A13 /* juce_video.mm in Sources */,

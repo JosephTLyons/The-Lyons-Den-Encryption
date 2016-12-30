@@ -19,7 +19,6 @@
 
 //[Headers]
 
-#include "key.hpp"
 
 //[/Headers]
 
@@ -137,6 +136,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     //[UserbuttonClicked_Pre]
 
     String tempHolderForSwap;
+    String outputText;
 
     //[/UserbuttonClicked_Pre]
 
@@ -144,10 +144,14 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     {
         //[UserButtonCode_encryptDecryptText]
         
+        // put text from text fields into the JUCE strings
         keyString       = keyText->getText();
         inputTextString = inputText->getText();
         
+        // encrypt text
         
+        
+        outputEncryptedText->setText(outputText);
         
         //[/UserButtonCode_encryptDecryptText]
     }

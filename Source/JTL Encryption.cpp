@@ -12,9 +12,6 @@
  
  --------------------- BUGS AND FIXES ------------------------------
  
- add line comments
- split large dual purpose function into two smaller one purpose functions
- 
  clean up rest of code nicely
  use of const / & on parameters that apply
  
@@ -24,7 +21,7 @@
  
  */
 
-void EncryptDecryptMessage(String key, String inputText, String OutputText)
+void encryptDecryptMessage(String key, String inputText, String outputText)
 {
     int  keyNumber = 1;
     
@@ -33,29 +30,27 @@ void EncryptDecryptMessage(String key, String inputText, String OutputText)
     char Key3[ASCII_RANGE_SIZE_94] = {0};
     
     // Turn key into a number
-    WordToNumberConverter(keyNumber, key);
+    wordToNumberConverter(keyNumber, key);
     
     // Seed number for my random number generator
     srand(keyNumber);
     
     // CYCLE THROUGH THE RANDOM NUMBERS WITH PASSWORDNUMBER TO ARRIVE AT A TRULY RANDOM
     // NUMBER AND FILL THREE KEYS, EACH WITH THEIR OWN UNIQUE SET OF NUMBERS
-    RunThroughRandomNumbers(keyNumber);
+    runThroughRandomNumbers(keyNumber);
     
-    FillKey(Key1);
+    fillKey(Key1);
     
-    RunThroughRandomNumbers(keyNumber);
+    runThroughRandomNumbers(keyNumber);
     
-    FillKey(Key2);
+    fillKey(Key2);
     
-    RunThroughRandomNumbers(keyNumber);
+    runThroughRandomNumbers(keyNumber);
     
-    FillKey(Key3);
-    
-    
+    fillKey(Key3);
 }
 
-void WordToNumberConverter(int &keyNum, String &key)
+void wordToNumberConverter(int &keyNum, String &key)
 {
     for (int i = 0; key[i] != '\n'; i++)
     {
@@ -64,7 +59,7 @@ void WordToNumberConverter(int &keyNum, String &key)
     }
 }
 
-void RunThroughRandomNumbers(int keyNum)
+void runThroughRandomNumbers(int keyNum)
 {
     /* CYCLES THROUGH RANDOM NUMBERS RANDOMLY */
     
@@ -76,7 +71,7 @@ void RunThroughRandomNumbers(int keyNum)
     }
 }
 
-void FillKey(char KeyBeingFilled[])
+void fillKey(char keyBeingFilled[])
 {
     int RandomNumber;
     int KeySpot, j;
@@ -87,27 +82,27 @@ void FillKey(char KeyBeingFilled[])
         
         for (j = 0; j <= KeySpot; ++j)//this bit of code checks to make sure new rand number isn't already used before
         {
-            if (KeyBeingFilled[j] == RandomNumber)
+            if (keyBeingFilled[j] == RandomNumber)
             {
                 RandomNumber = SHIFT_SET_32 + rand() % ASCII_RANGE_SIZE_94;//0-93, then shifts up to 32-126
                 j = -1;
             }
         }
         
-        KeyBeingFilled[KeySpot] = (char) RandomNumber;
+        keyBeingFilled[KeySpot] = (char) RandomNumber;
     }
 }
 
-char EncryptMessage(char KeyForEncrypting[], char Input)
+char encryptMessage(String keyForEncrypting, char input)
 {
-    return KeyForEncrypting[((int) Input) - SHIFT_SET_32];//-32 to get range back into 1-95 (range of Key)
+    return keyForEncrypting[((int) input) - SHIFT_SET_32];//-32 to get range back into 1-95 (range of Key)
 }
 
-char DecryptMessage(char KeyForDecrypting[], char Input)
+char decryptMessage(String KeyForDecrypting, char input)
 {
     for (int Count = 0; Count < ASCII_RANGE_SIZE_94; ++Count)
     {
-        if ((int) Input == KeyForDecrypting[Count])
+        if ((int) input == KeyForDecrypting[Count])
         {
             return (char) Count+SHIFT_SET_32;//+32 to get back into 32-126 ASCII range
         }
