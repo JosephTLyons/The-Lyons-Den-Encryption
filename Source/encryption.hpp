@@ -9,11 +9,11 @@
 #ifndef Encryption_hpp
 #define Encryption_hpp
 
-#include <string>
+#include "../JuceLibraryCode/JuceHeader.h"
 
 using namespace std;
 
 // Encrypts and decrypts text using a simple exclusive OR technique
-void encryptDecrypt(const string &key, const string &inputText, string &encryptedText);
+void encryptDecrypt(const String &key, const String &inputText, String &encryptedText);
 
 #endif /* Encryption_hpp */

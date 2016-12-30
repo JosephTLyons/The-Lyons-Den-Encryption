@@ -17,7 +17,10 @@
   ==============================================================================
 */
 
-//[Headers] You can add your own extra header files here...
+//[Headers]
+
+#include "key.hpp"
+
 //[/Headers]
 
 #include "MainComponent.h"
@@ -139,7 +142,13 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 
     if (buttonThatWasClicked == encryptDecryptText)
     {
-        //[UserButtonCode_encryptDecryptText] -- add your button handler code here..
+        //[UserButtonCode_encryptDecryptText]
+        
+        keyString       = keyText->getText();
+        inputTextString = inputText->getText();
+        
+        
+        
         //[/UserButtonCode_encryptDecryptText]
     }
     else if (buttonThatWasClicked == clearText)
@@ -152,9 +161,9 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         outputEncryptedText->clear();
 
         // reset text
-        keyText->setText("Input Key Here");
-        inputText->setText("Input Text Here");
-        outputEncryptedText->setText("Encrypted Text Ouputs Here");
+//        keyText->setText("Input Key Here");
+//        inputText->setText("Input Text Here");
+//        outputEncryptedText->setText("Encrypted Text Ouputs Here");
 
         //[/UserButtonCode_clearText]
     }
@@ -177,8 +186,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 
 
 
-//[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
-
+//[MiscUserCode]
 //[/MiscUserCode]
 
 
