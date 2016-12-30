@@ -21,13 +21,14 @@
  
  */
 
-void encryptDecryptMessage(String userKey, String inputText, String outputText)
+void encryptDecryptMessage(String userKey, String inputText,
+                           String &outputText, bool encryptionMode)
 {
     int  keyNumber = 1;
     
-    char Key1[ASCII_RANGE_SIZE_94] = {0};//One larger 0 - 93, not using 0
-    char Key2[ASCII_RANGE_SIZE_94] = {0};
-    char Key3[ASCII_RANGE_SIZE_94] = {0};
+    char key1[ASCII_RANGE_SIZE_94] = {0};//One larger 0 - 93, not using 0
+    char key2[ASCII_RANGE_SIZE_94] = {0};
+    char key3[ASCII_RANGE_SIZE_94] = {0};
     
     char InputCharacter1, InputCharacter2, InputCharacter3;
     
@@ -41,34 +42,42 @@ void encryptDecryptMessage(String userKey, String inputText, String outputText)
     // NUMBER AND FILL THREE KEYS, EACH WITH THEIR OWN UNIQUE SET OF NUMBERS
     runThroughRandomNumbers(keyNumber);
     
-    fillKey(Key1);
+    fillKey(key1);
     
     runThroughRandomNumbers(keyNumber);
     
-    fillKey(Key2);
+    fillKey(key2);
     
     runThroughRandomNumbers(keyNumber);
     
-    fillKey(Key3);
+    fillKey(key3);
     
     // encrypt messages
-    for (int i = 0; i < inputText.length(); i++)
+    if (encryptionMode == true)
     {
-        InputCharacter1 = encryptMessage(userKey, inputText[i]);
-        InputCharacter2 = encryptMessage(Key1, InputCharacter1);
-        InputCharacter3 = encryptMessage(Key2, InputCharacter2);
-        
-        outputText += encryptMessage(Key3, InputCharacter3);
+        for (int i = 0; i < inputText.length(); i++)
+        {
+            InputCharacter1 = inputText[i];
+            
+            InputCharacter2 = encryptMessage(key1, InputCharacter1);
+            InputCharacter3 = encryptMessage(key2, InputCharacter2);
+            
+            outputText += encryptMessage(key3, InputCharacter3);
+        }
     }
 
     // decrypt messages
-    for (int i = 0; i < inputText.length(); i++)
+    else
     {
-        InputCharacter1 = decryptMessage(userKey, inputText[i]);
-        InputCharacter2 = decryptMessage(Key1, InputCharacter1);
-        InputCharacter3 = encryptMessage(Key2, InputCharacter2);
-        
-        outputText += decryptMessage(Key3, InputCharacter3);
+        for (int i = 0; i < inputText.length(); i++)
+        {
+            InputCharacter1 = inputText[i];
+            
+            InputCharacter2 = decryptMessage(key3, InputCharacter1);
+            InputCharacter3 = decryptMessage(key2, InputCharacter2);
+            
+            outputText += decryptMessage(key1, InputCharacter3);
+        }
     }
 }
 

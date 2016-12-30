@@ -13,7 +13,8 @@
 
 using namespace std;
 
-void encryptDecryptMessage(String key, String inputText, String outputText);
+void encryptDecryptMessage(String userKey, String inputText,
+                           String &outputText, bool encryptionMode);
 
 void wordToNumberConverter(int &keyNum, String &key);
 void runThroughRandomNumbers(int keyNum);

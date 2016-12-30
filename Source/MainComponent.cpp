@@ -95,9 +95,13 @@ MainComponent::MainComponent ()
 
 
     //[Constructor] You can add your own custom stuff here..
-    
+
+    // start app with encryption mode on
     encryptionModeToggle->setToggleState(true, dontSendNotification);
-    
+
+    // swap text button isn't available until first encryption click
+    swapText->setEnabled(false);
+
     //[/Constructor]
 }
 
@@ -140,10 +144,10 @@ void MainComponent::resized()
     inputTextEditor->setBounds (8, 56, 336, 136);
     outputTextEditor->setBounds (8, 200, 336, 136);
     keyTextEditor->setBounds (8, 8, 336, 40);
-    encryptDecryptText->setBounds (348, 56, 147, 135);
+    encryptDecryptText->setBounds (348, 56, 147, 136);
     clearText->setBounds (348, 270, 147, 66);
-    swapText->setBounds (348, 198, 147, 66);
-    decryptionModeToggle->setBounds (348, 30, 75, 24);
+    swapText->setBounds (348, 200, 147, 66);
+    decryptionModeToggle->setBounds (420, 6, 75, 24);
     encryptionModeToggle->setBounds (348, 6, 75, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
@@ -153,8 +157,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 {
     //[UserbuttonClicked_Pre]
 
-    String tempHolderForSwap;
-    String outputText;
+    String outputTextString;
 
     //[/UserbuttonClicked_Pre]
 
@@ -162,15 +165,22 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     {
         //[UserButtonCode_encryptDecryptText] -- add your button handler code here..
 
+        // if swap text button is disabled, turn it on
+        // this only happens once
+        if (!swapText->isEnabled())
+        {
+            swapText->setEnabled(true);
+        }
+
         // put text from text fields into the JUCE strings
         keyString       = keyTextEditor->getText();
         inputTextString = inputTextEditor->getText();
 
         // encrypt text
-        encryptDecryptMessage(keyString, inputTextString, OutputTextString);
+        encryptDecryptMessage(keyString, inputTextString, outputTextString, encryptionModeToggle->getToggleState());
 
         // set output text editor to new text
-        outputTextEditor->setText(outputText);
+        outputTextEditor->setText(outputTextString);
 
         //[/UserButtonCode_encryptDecryptText]
     }
@@ -183,29 +193,23 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         inputTextEditor->clear();
         outputTextEditor->clear();
 
-        // reset text
-//        keyText->setText("Input Key Here");
-//        inputText->setText("Input Text Here");
-//        outputEncryptedText->setText("Encrypted Text Ouputs Here");
-
         //[/UserButtonCode_clearText]
     }
     else if (buttonThatWasClicked == swapText)
     {
         //[UserButtonCode_swapText] -- add your button handler code here..
 
-        // swap fields
-        tempHolderForSwap = inputTextEditor->getText();
+        // swap field
         inputTextEditor->setText(outputTextEditor->getText());
-        outputTextEditor->setText(tempHolderForSwap);
-        
+        outputTextEditor->clear();
+
         // swap encrypt / decrypt mode
         if (encryptionModeToggle->getToggleState())
         {
             encryptionModeToggle->setToggleState(false, dontSendNotification);
             decryptionModeToggle->setToggleState(true, dontSendNotification);
         }
-        
+
         else
         {
             encryptionModeToggle->setToggleState(true, dontSendNotification);
@@ -216,20 +220,20 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     }
     else if (buttonThatWasClicked == decryptionModeToggle)
     {
-        //[UserButtonCode_decryptionModeToggle]
+        //[UserButtonCode_decryptionModeToggle] -- add your button handler code here..
 
-        // turn other mode off
+        // turn encrypt mode off
         encryptionModeToggle->setToggleState(false, dontSendNotification);
 
         //[/UserButtonCode_decryptionModeToggle]
     }
     else if (buttonThatWasClicked == encryptionModeToggle)
     {
-        //[UserButtonCode_encryptionModeToggle]
-        
-        // turn other mode off
+        //[UserButtonCode_encryptionModeToggle] -- add your button handler code here..
+
+        // turn decrypt mode off
         decryptionModeToggle->setToggleState(false, dontSendNotification);
-        
+
         //[/UserButtonCode_encryptionModeToggle]
     }
 
@@ -270,16 +274,16 @@ BEGIN_JUCER_METADATA
               multiline="1" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <TEXTBUTTON name="new button" id="3bbb40b8fcf75027" memberName="encryptDecryptText"
-              virtualName="" explicitFocusOrder="0" pos="348 56 147 135" buttonText="Encrypt / Decrypt Text"
+              virtualName="" explicitFocusOrder="0" pos="348 56 147 136" buttonText="Encrypt / Decrypt Text"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="c83123a33c17aff6" memberName="clearText"
               virtualName="" explicitFocusOrder="0" pos="348 270 147 66" buttonText="Clear Text"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="3966e441c06b33be" memberName="swapText"
-              virtualName="" explicitFocusOrder="0" pos="348 198 147 66" buttonText="Swap Text"
+              virtualName="" explicitFocusOrder="0" pos="348 200 147 66" buttonText="Swap Text"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TOGGLEBUTTON name="decryptionModeToggle" id="eb69d3a92b08680f" memberName="decryptionModeToggle"
-                virtualName="" explicitFocusOrder="0" pos="348 30 75 24" txtcol="ffffffff"
+                virtualName="" explicitFocusOrder="0" pos="420 6 75 24" txtcol="ffffffff"
                 buttonText="Decrypt" connectedEdges="0" needsCallback="1" radioGroupId="0"
                 state="0"/>
   <TOGGLEBUTTON name="encryptionModeToggle2" id="feb87990a59e0b0d" memberName="encryptionModeToggle"

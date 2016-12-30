@@ -58,7 +58,6 @@ private:
 
     String keyString;
     String inputTextString;
-    String OutputTextString;
 
     //[/UserVariables]
 
