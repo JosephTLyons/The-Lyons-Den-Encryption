@@ -32,7 +32,7 @@ MainComponent::MainComponent ()
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
 
-    addAndMakeVisible (inputText = new TextEditor ("new text editor"));
+    addAndMakeVisible (inputText = new TextEditor ("inputText"));
     inputText->setMultiLine (false);
     inputText->setReturnKeyStartsNewLine (false);
     inputText->setReadOnly (false);
@@ -50,7 +50,7 @@ MainComponent::MainComponent ()
     outputEncryptedText->setPopupMenuEnabled (true);
     outputEncryptedText->setText (TRANS("Encrypted Text Ouputs Here"));
 
-    addAndMakeVisible (keyText = new TextEditor ("new text editor"));
+    addAndMakeVisible (keyText = new TextEditor ("keyText"));
     keyText->setMultiLine (false);
     keyText->setReturnKeyStartsNewLine (false);
     keyText->setReadOnly (false);
@@ -132,6 +132,9 @@ void MainComponent::resized()
 void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 {
     //[UserbuttonClicked_Pre]
+    
+    String tempHolderForSwap;
+    
     //[/UserbuttonClicked_Pre]
 
     if (buttonThatWasClicked == encryptDecryptText)
@@ -152,7 +155,13 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     }
     else if (buttonThatWasClicked == swapText)
     {
-        //[UserButtonCode_swapText] -- add your button handler code here..
+        //[UserButtonCode_swapText]
+        
+        // swap fields
+        tempHolderForSwap = inputText->getText();
+        inputText->setText(outputEncryptedText->getText());
+        outputEncryptedText->setText(tempHolderForSwap);
+        
         //[/UserButtonCode_swapText]
     }
 
@@ -181,7 +190,7 @@ BEGIN_JUCER_METADATA
                  snapPixels="3" snapActive="1" snapShown="1" overlayOpacity="0.330"
                  fixedSize="1" initialWidth="500" initialHeight="350">
   <BACKGROUND backgroundColour="ff000000"/>
-  <TEXTEDITOR name="new text editor" id="cd5cf2088e4b8391" memberName="inputText"
+  <TEXTEDITOR name="inputText" id="cd5cf2088e4b8391" memberName="inputText"
               virtualName="" explicitFocusOrder="0" pos="8 56 336 136" initialText="Input Text Here"
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
@@ -189,8 +198,8 @@ BEGIN_JUCER_METADATA
               virtualName="" explicitFocusOrder="0" pos="8 200 336 136" initialText="Encrypted Text Ouputs Here"
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="b5d11893eb6accf3" memberName="keyText"
-              virtualName="" explicitFocusOrder="0" pos="8 8 336 40" initialText="Input Key Here"
+  <TEXTEDITOR name="keyText" id="b5d11893eb6accf3" memberName="keyText" virtualName=""
+              explicitFocusOrder="0" pos="8 8 336 40" initialText="Input Key Here"
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <TEXTBUTTON name="new button" id="3bbb40b8fcf75027" memberName="encryptDecryptText"
