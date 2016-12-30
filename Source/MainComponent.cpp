@@ -87,6 +87,16 @@ MainComponent::MainComponent ()
     encryptionModeToggle->addListener (this);
     encryptionModeToggle->setColour (ToggleButton::textColourId, Colours::white);
 
+    addAndMakeVisible (copyToClipboard = new TextButton ("copyToClipboard"));
+    copyToClipboard->setButtonText (TRANS("Copy"));
+    copyToClipboard->setConnectedEdges (Button::ConnectedOnLeft | Button::ConnectedOnRight);
+    copyToClipboard->addListener (this);
+
+    addAndMakeVisible (pasteToInput = new TextButton ("pasteToInput"));
+    pasteToInput->setButtonText (TRANS("Paste"));
+    pasteToInput->setConnectedEdges (Button::ConnectedOnLeft | Button::ConnectedOnRight);
+    pasteToInput->addListener (this);
+
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -118,6 +128,8 @@ MainComponent::~MainComponent()
     swapText = nullptr;
     decryptionModeToggle = nullptr;
     encryptionModeToggle = nullptr;
+    copyToClipboard = nullptr;
+    pasteToInput = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -145,10 +157,12 @@ void MainComponent::resized()
     outputTextEditor->setBounds (8, 200, 336, 136);
     keyTextEditor->setBounds (8, 8, 336, 40);
     encryptDecryptText->setBounds (348, 56, 147, 136);
-    clearText->setBounds (348, 270, 147, 66);
-    swapText->setBounds (348, 200, 147, 66);
+    clearText->setBounds (348, 292, 147, 45);
+    swapText->setBounds (348, 200, 147, 45);
     decryptionModeToggle->setBounds (420, 6, 75, 24);
     encryptionModeToggle->setBounds (348, 6, 75, 24);
+    copyToClipboard->setBounds (348, 246, 73, 45);
+    pasteToInput->setBounds (422, 246, 73, 45);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -156,14 +170,15 @@ void MainComponent::resized()
 void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 {
     //[UserbuttonClicked_Pre]
-
-    String outputTextString;
-
     //[/UserbuttonClicked_Pre]
 
     if (buttonThatWasClicked == encryptDecryptText)
     {
         //[UserButtonCode_encryptDecryptText] -- add your button handler code here..
+        
+        // clear output and input to start with blank strings
+        outputTextString.clear();
+        inputTextString.clear();
 
         // if swap text button is disabled, turn it on
         // this only happens once
@@ -181,7 +196,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 
         // set output text editor to new text
         outputTextEditor->setText(outputTextString);
-
+        
         //[/UserButtonCode_encryptDecryptText]
     }
     else if (buttonThatWasClicked == clearText)
@@ -236,6 +251,29 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 
         //[/UserButtonCode_encryptionModeToggle]
     }
+    else if (buttonThatWasClicked == copyToClipboard)
+    {
+        //[UserButtonCode_copyToClipboard]
+        
+        // copy text from output to clipboard
+        SystemClipboard::copyTextToClipboard(outputTextEditor->getText());
+        
+        //[/UserButtonCode_copyToClipboard]
+    }
+    else if (buttonThatWasClicked == pasteToInput)
+    {
+        //[UserButtonCode_pasteToInput] -- add your button handler code here..
+        
+        // // paste text from clipboard to input
+        inputTextEditor->setText(SystemClipboard::getTextFromClipboard());
+        
+        // change modes for a paste (its assumed that a paste means the user wants to decrypt
+        decryptionModeToggle->setToggleState(true, dontSendNotification);
+        encryptionModeToggle->setToggleState(false, dontSendNotification);
+        
+        
+        //[/UserButtonCode_pasteToInput]
+    }
 
     //[UserbuttonClicked_Post]
     //[/UserbuttonClicked_Post]
@@ -277,10 +315,10 @@ BEGIN_JUCER_METADATA
               virtualName="" explicitFocusOrder="0" pos="348 56 147 136" buttonText="Encrypt / Decrypt Text"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="c83123a33c17aff6" memberName="clearText"
-              virtualName="" explicitFocusOrder="0" pos="348 270 147 66" buttonText="Clear Text"
+              virtualName="" explicitFocusOrder="0" pos="348 292 147 45" buttonText="Clear Text"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="3966e441c06b33be" memberName="swapText"
-              virtualName="" explicitFocusOrder="0" pos="348 200 147 66" buttonText="Swap Text"
+              virtualName="" explicitFocusOrder="0" pos="348 200 147 45" buttonText="Swap Text"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TOGGLEBUTTON name="decryptionModeToggle" id="eb69d3a92b08680f" memberName="decryptionModeToggle"
                 virtualName="" explicitFocusOrder="0" pos="420 6 75 24" txtcol="ffffffff"
@@ -290,6 +328,12 @@ BEGIN_JUCER_METADATA
                 virtualName="" explicitFocusOrder="0" pos="348 6 75 24" txtcol="ffffffff"
                 buttonText="Encrypt" connectedEdges="0" needsCallback="1" radioGroupId="0"
                 state="0"/>
+  <TEXTBUTTON name="copyToClipboard" id="f46788f09ba91384" memberName="copyToClipboard"
+              virtualName="" explicitFocusOrder="0" pos="348 246 73 45" buttonText="Copy"
+              connectedEdges="3" needsCallback="1" radioGroupId="0"/>
+  <TEXTBUTTON name="pasteToInput" id="7be5641456548145" memberName="pasteToInput"
+              virtualName="" explicitFocusOrder="0" pos="422 246 73 45" buttonText="Paste"
+              connectedEdges="3" needsCallback="1" radioGroupId="0"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

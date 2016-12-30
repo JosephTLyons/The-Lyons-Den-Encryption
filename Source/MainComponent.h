@@ -58,6 +58,7 @@ private:
 
     String keyString;
     String inputTextString;
+    String outputTextString;
 
     //[/UserVariables]
 
@@ -70,6 +71,8 @@ private:
     ScopedPointer<TextButton> swapText;
     ScopedPointer<ToggleButton> decryptionModeToggle;
     ScopedPointer<ToggleButton> encryptionModeToggle;
+    ScopedPointer<TextButton> copyToClipboard;
+    ScopedPointer<TextButton> pasteToInput;
 
 
     //==============================================================================

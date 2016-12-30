@@ -11,13 +11,14 @@
 /*
  
  --------------------- BUGS AND FIXES ------------------------------
- 
- clean up rest of code nicely
+
  use of const / & on parameters that apply
+ different types of encryption with drop down list
  
  --------------------- NEW FEATURES --------------------------------
  
- automatically copy the encrypted/decoded message into mac clipboard
+ change JTL encryption into a class and clean up code heavily
+ if neigther option is selected, output "please select a mode"
  
  */
 
