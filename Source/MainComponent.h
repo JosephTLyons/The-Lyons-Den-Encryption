@@ -63,9 +63,9 @@ private:
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<TextEditor> inputText;
-    ScopedPointer<TextEditor> outputEncryptedText;
-    ScopedPointer<TextEditor> keyText;
+    ScopedPointer<TextEditor> inputTextEditor;
+    ScopedPointer<TextEditor> outputTextEditor;
+    ScopedPointer<TextEditor> keyTextEditor;
     ScopedPointer<TextButton> encryptDecryptText;
     ScopedPointer<TextButton> clearText;
     ScopedPointer<TextButton> swapText;

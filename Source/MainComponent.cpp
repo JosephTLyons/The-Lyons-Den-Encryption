@@ -17,8 +17,9 @@
   ==============================================================================
 */
 
-//[Headers]
+//[Headers] You can add your own extra header files here...
 
+#include "JTL Encryption.hpp"
 
 //[/Headers]
 
@@ -34,32 +35,32 @@ MainComponent::MainComponent ()
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
 
-    addAndMakeVisible (inputText = new TextEditor ("inputText"));
-    inputText->setMultiLine (true);
-    inputText->setReturnKeyStartsNewLine (false);
-    inputText->setReadOnly (false);
-    inputText->setScrollbarsShown (true);
-    inputText->setCaretVisible (true);
-    inputText->setPopupMenuEnabled (true);
-    inputText->setText (TRANS("Input Text Here"));
+    addAndMakeVisible (inputTextEditor = new TextEditor ("inputTextEditor"));
+    inputTextEditor->setMultiLine (true);
+    inputTextEditor->setReturnKeyStartsNewLine (false);
+    inputTextEditor->setReadOnly (false);
+    inputTextEditor->setScrollbarsShown (true);
+    inputTextEditor->setCaretVisible (true);
+    inputTextEditor->setPopupMenuEnabled (true);
+    inputTextEditor->setText (TRANS("Input Text Here"));
 
-    addAndMakeVisible (outputEncryptedText = new TextEditor ("new text editor"));
-    outputEncryptedText->setMultiLine (true);
-    outputEncryptedText->setReturnKeyStartsNewLine (false);
-    outputEncryptedText->setReadOnly (false);
-    outputEncryptedText->setScrollbarsShown (true);
-    outputEncryptedText->setCaretVisible (true);
-    outputEncryptedText->setPopupMenuEnabled (true);
-    outputEncryptedText->setText (TRANS("Encrypted Text Ouputs Here"));
+    addAndMakeVisible (outputTextEditor = new TextEditor ("outputTextEditor"));
+    outputTextEditor->setMultiLine (true);
+    outputTextEditor->setReturnKeyStartsNewLine (false);
+    outputTextEditor->setReadOnly (false);
+    outputTextEditor->setScrollbarsShown (true);
+    outputTextEditor->setCaretVisible (true);
+    outputTextEditor->setPopupMenuEnabled (true);
+    outputTextEditor->setText (TRANS("Text Output Displayed Here"));
 
-    addAndMakeVisible (keyText = new TextEditor ("keyText"));
-    keyText->setMultiLine (true);
-    keyText->setReturnKeyStartsNewLine (false);
-    keyText->setReadOnly (false);
-    keyText->setScrollbarsShown (true);
-    keyText->setCaretVisible (true);
-    keyText->setPopupMenuEnabled (true);
-    keyText->setText (TRANS("Input Key Here"));
+    addAndMakeVisible (keyTextEditor = new TextEditor ("keyText"));
+    keyTextEditor->setMultiLine (true);
+    keyTextEditor->setReturnKeyStartsNewLine (false);
+    keyTextEditor->setReadOnly (false);
+    keyTextEditor->setScrollbarsShown (true);
+    keyTextEditor->setCaretVisible (true);
+    keyTextEditor->setPopupMenuEnabled (true);
+    keyTextEditor->setText (TRANS("Input Key Here"));
 
     addAndMakeVisible (encryptDecryptText = new TextButton ("new button"));
     encryptDecryptText->setButtonText (TRANS("Encrypt / Decrypt Text"));
@@ -92,9 +93,9 @@ MainComponent::~MainComponent()
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
 
-    inputText = nullptr;
-    outputEncryptedText = nullptr;
-    keyText = nullptr;
+    inputTextEditor = nullptr;
+    outputTextEditor = nullptr;
+    keyTextEditor = nullptr;
     encryptDecryptText = nullptr;
     clearText = nullptr;
     swapText = nullptr;
@@ -121,9 +122,9 @@ void MainComponent::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    inputText->setBounds (8, 56, 336, 136);
-    outputEncryptedText->setBounds (8, 200, 336, 136);
-    keyText->setBounds (8, 8, 336, 40);
+    inputTextEditor->setBounds (8, 56, 336, 136);
+    outputTextEditor->setBounds (8, 200, 336, 136);
+    keyTextEditor->setBounds (8, 8, 336, 40);
     encryptDecryptText->setBounds (348, 56, 147, 135);
     clearText->setBounds (348, 200, 147, 135);
     swapText->setBounds (348, 6, 147, 42);
@@ -142,17 +143,18 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 
     if (buttonThatWasClicked == encryptDecryptText)
     {
-        //[UserButtonCode_encryptDecryptText]
-        
+        //[UserButtonCode_encryptDecryptText] -- add your button handler code here..
+
         // put text from text fields into the JUCE strings
-        keyString       = keyText->getText();
-        inputTextString = inputText->getText();
-        
+        keyString       = keyTextEditor->getText();
+        inputTextString = inputTextEditor->getText();
+
         // encrypt text
-        
-        
-        outputEncryptedText->setText(outputText);
-        
+        encryptDecryptMessage(keyString, inputTextString, OutputTextString);
+
+        // set output text editor to new text
+        outputTextEditor->setText(outputText);
+
         //[/UserButtonCode_encryptDecryptText]
     }
     else if (buttonThatWasClicked == clearText)
@@ -160,9 +162,9 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         //[UserButtonCode_clearText] -- add your button handler code here..
 
         // clear all text fields
-        keyText->clear();
-        inputText->clear();
-        outputEncryptedText->clear();
+        keyTextEditor->clear();
+        inputTextEditor->clear();
+        outputTextEditor->clear();
 
         // reset text
 //        keyText->setText("Input Key Here");
@@ -176,10 +178,10 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         //[UserButtonCode_swapText] -- add your button handler code here..
 
         // swap fields
-        tempHolderForSwap = inputText->getText();
+        tempHolderForSwap = inputTextEditor->getText();
 
-        inputText->setText(outputEncryptedText->getText());
-        outputEncryptedText->setText(tempHolderForSwap);
+        inputTextEditor->setText(outputTextEditor->getText());
+        outputTextEditor->setText(tempHolderForSwap);
 
         //[/UserButtonCode_swapText]
     }
@@ -190,7 +192,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 
 
 
-//[MiscUserCode]
+//[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 //[/MiscUserCode]
 
 
@@ -208,16 +210,16 @@ BEGIN_JUCER_METADATA
                  snapPixels="3" snapActive="1" snapShown="1" overlayOpacity="0.330"
                  fixedSize="1" initialWidth="500" initialHeight="350">
   <BACKGROUND backgroundColour="ff000000"/>
-  <TEXTEDITOR name="inputText" id="cd5cf2088e4b8391" memberName="inputText"
+  <TEXTEDITOR name="inputTextEditor" id="cd5cf2088e4b8391" memberName="inputTextEditor"
               virtualName="" explicitFocusOrder="0" pos="8 56 336 136" initialText="Input Text Here"
               multiline="1" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="20825e2d4e657e11" memberName="outputEncryptedText"
-              virtualName="" explicitFocusOrder="0" pos="8 200 336 136" initialText="Encrypted Text Ouputs Here"
+  <TEXTEDITOR name="outputTextEditor" id="20825e2d4e657e11" memberName="outputTextEditor"
+              virtualName="" explicitFocusOrder="0" pos="8 200 336 136" initialText="Text Output Displayed Here"
               multiline="1" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="keyText" id="b5d11893eb6accf3" memberName="keyText" virtualName=""
-              explicitFocusOrder="0" pos="8 8 336 40" initialText="Input Key Here"
+  <TEXTEDITOR name="keyText" id="b5d11893eb6accf3" memberName="keyTextEditor"
+              virtualName="" explicitFocusOrder="0" pos="8 8 336 40" initialText="Input Key Here"
               multiline="1" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <TEXTBUTTON name="new button" id="3bbb40b8fcf75027" memberName="encryptDecryptText"
