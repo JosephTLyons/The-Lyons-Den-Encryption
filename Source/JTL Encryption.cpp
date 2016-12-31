@@ -11,17 +11,17 @@
 /*
  
  --------------------- BUGS AND FIXES ------------------------------
-
- use of const / & on parameters that apply
- different types of encryption with drop down list
  
  --------------------- NEW FEATURES --------------------------------
  
+ different types of encryption with drop down list
  change JTL encryption into a class and clean up code heavily
- if neigther option is selected, output "please select a mode"
  have text disappear when clicking the mouse on it
  tool tips
- option for secret input of message?
+ toggle option for secret input of message?
+ option to generate random key for the user (use a 4th key to do this)
+ -add copy and paste button for key
+ -rename original copy and paste to output copy, input paste
  
  */
 

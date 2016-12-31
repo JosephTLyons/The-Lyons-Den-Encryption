@@ -83,7 +83,7 @@ MainComponent::MainComponent ()
     decryptionModeToggle->addListener (this);
     decryptionModeToggle->setColour (ToggleButton::textColourId, Colours::white);
 
-    addAndMakeVisible (encryptionModeToggle = new ToggleButton ("encryptionModeToggle2"));
+    addAndMakeVisible (encryptionModeToggle = new ToggleButton ("encryptionModeToggle"));
     encryptionModeToggle->setButtonText (TRANS("Encrypt"));
     encryptionModeToggle->addListener (this);
     encryptionModeToggle->setColour (ToggleButton::textColourId, Colours::white);
@@ -238,8 +238,13 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     {
         //[UserButtonCode_decryptionModeToggle] -- add your button handler code here..
 
-        // turn encrypt mode off
-        encryptionModeToggle->setToggleState(false, dontSendNotification);
+        // if decrypt mode was on at button push, turn off and flip encrypt mode on
+        if(!decryptionModeToggle->getToggleState())
+            encryptionModeToggle->setToggleState(true, dontSendNotification);
+
+        // if decrypt mode is off, turn on and turn encrypt mode off
+        else
+            encryptionModeToggle->setToggleState(false, dontSendNotification);
 
         //[/UserButtonCode_decryptionModeToggle]
     }
@@ -247,8 +252,13 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     {
         //[UserButtonCode_encryptionModeToggle] -- add your button handler code here..
 
-        // turn decrypt mode off
-        decryptionModeToggle->setToggleState(false, dontSendNotification);
+        // if encrypt mode was on at button push, turn off and flip decrypt mode on
+        if(!encryptionModeToggle->getToggleState())
+            decryptionModeToggle->setToggleState(true, dontSendNotification);
+
+        // if encrypt mode is off, turn on and turn decrypt mode off
+        else
+            decryptionModeToggle->setToggleState(false, dontSendNotification);
 
         //[/UserButtonCode_encryptionModeToggle]
     }
@@ -324,7 +334,7 @@ BEGIN_JUCER_METADATA
                 virtualName="" explicitFocusOrder="0" pos="420 6 75 24" txtcol="ffffffff"
                 buttonText="Decrypt" connectedEdges="0" needsCallback="1" radioGroupId="0"
                 state="0"/>
-  <TOGGLEBUTTON name="encryptionModeToggle2" id="feb87990a59e0b0d" memberName="encryptionModeToggle"
+  <TOGGLEBUTTON name="encryptionModeToggle" id="feb87990a59e0b0d" memberName="encryptionModeToggle"
                 virtualName="" explicitFocusOrder="0" pos="348 6 75 24" txtcol="ffffffff"
                 buttonText="Encrypt" connectedEdges="0" needsCallback="1" radioGroupId="0"
                 state="0"/>
