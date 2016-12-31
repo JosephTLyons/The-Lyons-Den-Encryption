@@ -9,6 +9,10 @@
       <FILE id="rIIQA6" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="nownO4" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
+      <FILE id="MaNGGm" name="JTL Encryption.hpp" compile="0" resource="0"
+            file="Source/JTL Encryption.hpp"/>
+      <FILE id="KtzYoB" name="JTL Encryption.cpp" compile="1" resource="0"
+            file="Source/JTL Encryption.cpp"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

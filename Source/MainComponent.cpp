@@ -94,7 +94,6 @@ MainComponent::MainComponent ()
     copyToClipboard->addListener (this);
 
     addAndMakeVisible (pasteToInput = new TextButton ("pasteToInput"));
-    pasteToInput->setTooltip (TRANS("Paste clipboard to input"));
     pasteToInput->setButtonText (TRANS("Paste"));
     pasteToInput->setConnectedEdges (Button::ConnectedOnLeft | Button::ConnectedOnRight);
     pasteToInput->addListener (this);
@@ -334,8 +333,8 @@ BEGIN_JUCER_METADATA
               virtualName="" explicitFocusOrder="0" pos="348 246 73 45" buttonText="Copy"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="pasteToInput" id="7be5641456548145" memberName="pasteToInput"
-              virtualName="" explicitFocusOrder="0" pos="422 246 73 45" tooltip="Paste clipboard to input"
-              buttonText="Paste" connectedEdges="3" needsCallback="1" radioGroupId="0"/>
+              virtualName="" explicitFocusOrder="0" pos="422 246 73 45" buttonText="Paste"
+              connectedEdges="3" needsCallback="1" radioGroupId="0"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
