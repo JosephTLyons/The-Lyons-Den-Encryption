@@ -35,51 +35,57 @@ void encryptDecryptMessage(const String &userKey, const String &inputText,
     char key1[ASCII_RANGE_SIZE_94] = {0};
     char key2[ASCII_RANGE_SIZE_94] = {0};
     char key3[ASCII_RANGE_SIZE_94] = {0};
-    
     char InputCharacter1, InputCharacter2, InputCharacter3;
     
-    // Turn key into a number
     convertKeyToNumber(keyNumber, userKey);
     
     // Seed number for my random number generator
     srand(keyNumber);
-    
+
+    fillKeys(keyNumber, key1, key2, key3);
+
+    // encrypt mode selected
+    if (encryptionMode == true)
+    {
+        for (int i = 0; i < inputText.length(); i++)
+        {
+            // triple encrypt one character at a time
+            InputCharacter1 = inputText[i];
+            InputCharacter2 = encryptMessage(key1, InputCharacter1);
+            InputCharacter3 = encryptMessage(key2, InputCharacter2);
+            
+            // store that character
+            outputText += encryptMessage(key3, InputCharacter3);
+        }
+    }
+
+    // decrypt mode selected
+    else
+    {
+        for (int i = 0; i < inputText.length(); i++)
+        {
+            // triple encrypt one character at a time
+            InputCharacter1 = inputText[i];
+            InputCharacter2 = decryptMessage(key3, InputCharacter1);
+            InputCharacter3 = decryptMessage(key2, InputCharacter2);
+            
+            // store that character
+            outputText += decryptMessage(key1, InputCharacter3);
+        }
+    }
+}
+
+void fillKeys(int keyNumber, char key1[], char key2[], char key3[])
+{
     // CYCLE THROUGH THE RANDOM NUMBERS WITH PASSWORDNUMBER TO ARRIVE AT A TRULY RANDOM
     // NUMBER AND FILL THREE KEYS, EACH WITH THEIR OWN UNIQUE SET OF NUMBERS
+    
     cycleThroughRandomNumbers(keyNumber);
     fillKey(key1);
     cycleThroughRandomNumbers(keyNumber);
     fillKey(key2);
     cycleThroughRandomNumbers(keyNumber);
     fillKey(key3);
-    
-    // encrypt messages
-    if (encryptionMode == true)
-    {
-        for (int i = 0; i < inputText.length(); i++)
-        {
-            InputCharacter1 = inputText[i];
-            
-            InputCharacter2 = encryptMessage(key1, InputCharacter1);
-            InputCharacter3 = encryptMessage(key2, InputCharacter2);
-            
-            outputText += encryptMessage(key3, InputCharacter3);
-        }
-    }
-
-    // decrypt messages
-    else
-    {
-        for (int i = 0; i < inputText.length(); i++)
-        {
-            InputCharacter1 = inputText[i];
-            
-            InputCharacter2 = decryptMessage(key3, InputCharacter1);
-            InputCharacter3 = decryptMessage(key2, InputCharacter2);
-            
-            outputText += decryptMessage(key1, InputCharacter3);
-        }
-    }
 }
 
 void convertKeyToNumber(int &keyNum, const String &key)

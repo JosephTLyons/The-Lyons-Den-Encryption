@@ -16,6 +16,8 @@ using namespace std;
 void encryptDecryptMessage(const String &userKey, const String &inputText,
                            String &outputText, const bool &encryptionMode);
 
+void fillKeys(int keyNumber, char key1[], char key2[], char key3[]);
+
 void convertKeyToNumber(int &keyNum, const String &key);
 void cycleThroughRandomNumbers(const int &keyNum);
 void fillKey(char keyBeingFilled[]);
