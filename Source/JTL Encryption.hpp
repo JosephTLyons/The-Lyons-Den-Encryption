@@ -13,15 +13,15 @@
 
 using namespace std;
 
-void encryptDecryptMessage(String userKey, String inputText,
-                           String &outputText, bool encryptionMode);
+void encryptDecryptMessage(const String &userKey, const String &inputText,
+                           String &outputText, const bool &encryptionMode);
 
-void wordToNumberConverter(int &keyNum, String &key);
-void runThroughRandomNumbers(int keyNum);
+void convertKeyToNumber(int &keyNum, const String &key);
+void cycleThroughRandomNumbers(const int &keyNum);
 void fillKey(char keyBeingFilled[]);
 
-char encryptMessage(String keyForEncrypting, char input);
-char decryptMessage(String KeyForDecrypting, char input);
+char encryptMessage(const String &keyForEncrypting, const char &input);
+char decryptMessage(const String &KeyForDecrypting, const char &input);
 
 const int ASCII_RANGE_SIZE_94 = 94;   //Range from ASCII value 32 to 126 = 94
 const int SHIFT_SET_32        = 32;   //Move range up 32 values form (0-93) to (32 to 126)

@@ -102,7 +102,7 @@ MainComponent::MainComponent ()
     //[UserPreSize]
     //[/UserPreSize]
 
-    setSize (500, 350);
+    setSize (500, 344);
 
 
     //[Constructor] You can add your own custom stuff here..
@@ -131,6 +131,7 @@ MainComponent::~MainComponent()
     encryptionModeToggle = nullptr;
     copyToClipboard = nullptr;
     pasteToInput = nullptr;
+
 
     //[Destructor]. You can add your own custom destruction code here..
     //[/Destructor]
@@ -278,6 +279,8 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     //[/UserbuttonClicked_Post]
 }
 
+
+
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 //[/MiscUserCode]
 
@@ -294,7 +297,7 @@ BEGIN_JUCER_METADATA
 <JUCER_COMPONENT documentType="Component" className="MainComponent" componentName=""
                  parentClasses="public Component" constructorParams="" variableInitialisers=""
                  snapPixels="3" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="1" initialWidth="500" initialHeight="350">
+                 fixedSize="1" initialWidth="500" initialHeight="344">
   <BACKGROUND backgroundColour="ff000000"/>
   <TEXTEDITOR name="inputTextEditor" id="cd5cf2088e4b8391" memberName="inputTextEditor"
               virtualName="" explicitFocusOrder="0" pos="8 56 336 136" initialText="Input Text Here"

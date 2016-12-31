@@ -25,35 +25,32 @@
  
  */
 
-void encryptDecryptMessage(String userKey, String inputText,
-                           String &outputText, bool encryptionMode)
+// main entry point for encryption of a JUCE string
+void encryptDecryptMessage(const String &userKey, const String &inputText,
+                           String &outputText, const bool &encryptionMode)
 {
     int  keyNumber = 1;
     
-    char key1[ASCII_RANGE_SIZE_94] = {0};//One larger 0 - 93, not using 0
+    //One larger 0 - 93, not using 0
+    char key1[ASCII_RANGE_SIZE_94] = {0};
     char key2[ASCII_RANGE_SIZE_94] = {0};
     char key3[ASCII_RANGE_SIZE_94] = {0};
     
     char InputCharacter1, InputCharacter2, InputCharacter3;
     
     // Turn key into a number
-    wordToNumberConverter(keyNumber, userKey);
+    convertKeyToNumber(keyNumber, userKey);
     
     // Seed number for my random number generator
     srand(keyNumber);
     
     // CYCLE THROUGH THE RANDOM NUMBERS WITH PASSWORDNUMBER TO ARRIVE AT A TRULY RANDOM
     // NUMBER AND FILL THREE KEYS, EACH WITH THEIR OWN UNIQUE SET OF NUMBERS
-    runThroughRandomNumbers(keyNumber);
-    
+    cycleThroughRandomNumbers(keyNumber);
     fillKey(key1);
-    
-    runThroughRandomNumbers(keyNumber);
-    
+    cycleThroughRandomNumbers(keyNumber);
     fillKey(key2);
-    
-    runThroughRandomNumbers(keyNumber);
-    
+    cycleThroughRandomNumbers(keyNumber);
     fillKey(key3);
     
     // encrypt messages
@@ -85,7 +82,7 @@ void encryptDecryptMessage(String userKey, String inputText,
     }
 }
 
-void wordToNumberConverter(int &keyNum, String &key)
+void convertKeyToNumber(int &keyNum, const String &key)
 {
     for (int i = 0; i < key.length(); i++)
     {
@@ -94,9 +91,9 @@ void wordToNumberConverter(int &keyNum, String &key)
     }
 }
 
-void runThroughRandomNumbers(int keyNum)
+// Cycles through random numbers randomly to help arrive at a truly random number
+void cycleThroughRandomNumbers(const int &keyNum)
 {
-    // Cycles through random numbers randomly
     int LoopLimit = rand() / keyNum;
     
     for (int i = 0; i <= LoopLimit; ++i)
@@ -105,6 +102,7 @@ void runThroughRandomNumbers(int keyNum)
     }
 }
 
+// Fills the key array with random characters
 void fillKey(char keyBeingFilled[])
 {
     int RandomNumber;
@@ -112,13 +110,18 @@ void fillKey(char keyBeingFilled[])
     
     for (KeySpot = 0; KeySpot < ASCII_RANGE_SIZE_94; ++KeySpot)
     {
-        RandomNumber = SHIFT_SET_32 + rand() % ASCII_RANGE_SIZE_94;//0-93, then shifts up to 32-126 ASCII range
+        // limits numbers to 0-93, then shifts up to 32-126 ASCII range
+        RandomNumber = SHIFT_SET_32 + rand() % ASCII_RANGE_SIZE_94;
         
-        for (j = 0; j <= KeySpot; ++j)//this bit of code checks to make sure new rand number isn't already used before
+        //this bit of code checks to make sure new rand number isn't already used before
+        for (j = 0; j <= KeySpot; ++j)
         {
             if (keyBeingFilled[j] == RandomNumber)
             {
-                RandomNumber = SHIFT_SET_32 + rand() % ASCII_RANGE_SIZE_94;//0-93, then shifts up to 32-126
+                // limits numbers to 0-93, then shifts up to 32-126 ASCII range
+                RandomNumber = SHIFT_SET_32 + rand() % ASCII_RANGE_SIZE_94;
+                
+                // reset counter of outer loop to check all the spots again
                 j = -1;
             }
         }
@@ -127,18 +130,20 @@ void fillKey(char keyBeingFilled[])
     }
 }
 
-char encryptMessage(String keyForEncrypting, char input)
+char encryptMessage(const String &keyForEncrypting, const char &input)
 {
-    return keyForEncrypting[((int) input) - SHIFT_SET_32];//-32 to get range back into 1-95 (range of Key)
+    //-32 to get range back into 1-95 (range of Key)
+    return keyForEncrypting[((int) input) - SHIFT_SET_32];
 }
 
-char decryptMessage(String KeyForDecrypting, char input)
+char decryptMessage(const String &KeyForDecrypting, const char &input)
 {
     for (int Count = 0; Count < ASCII_RANGE_SIZE_94; ++Count)
     {
         if ((int) input == KeyForDecrypting[Count])
         {
-            return (char) Count+SHIFT_SET_32;//+32 to get back into 32-126 ASCII range
+            //+32 to get back into 32-126 ASCII range
+            return (char) Count+SHIFT_SET_32;
         }
     }
     
