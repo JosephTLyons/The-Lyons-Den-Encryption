@@ -132,7 +132,6 @@ MainComponent::~MainComponent()
     copyToClipboard = nullptr;
     pasteToInput = nullptr;
 
-
     //[Destructor]. You can add your own custom destruction code here..
     //[/Destructor]
 }
@@ -265,13 +264,12 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     {
         //[UserButtonCode_pasteToInput] -- add your button handler code here..
 
-        // // paste text from clipboard to input
+        // paste text from clipboard to input
         inputTextEditor->setText(SystemClipboard::getTextFromClipboard());
 
         // change modes for a paste (its assumed that a paste means the user wants to decrypt
         decryptionModeToggle->setToggleState(true, dontSendNotification);
         encryptionModeToggle->setToggleState(false, dontSendNotification);
-
 
         //[/UserButtonCode_pasteToInput]
     }
@@ -279,8 +277,6 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     //[UserbuttonClicked_Post]
     //[/UserbuttonClicked_Post]
 }
-
-
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 //[/MiscUserCode]
