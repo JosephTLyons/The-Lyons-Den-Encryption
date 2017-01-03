@@ -14,6 +14,12 @@ void EncryptionStrings::setKey(const String &input)
     keyString = input;
 }
 
+void EncryptionStrings::setInput(const String &input)
+{
+    inputTextString.clear();
+    inputTextString = input;
+}
+
 void EncryptionStrings::clearStrings()
 {
     inputTextString.clear();

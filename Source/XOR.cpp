@@ -7,6 +7,19 @@
 //
 
 #include "XOR.hpp"
+#include <ctype.h> // for toupper function
+
+void XOR::makeUpperCase()
+{
+    String temp;
+    
+    for(int i = 0; i < getInputStringLength(); i++)
+    {
+        temp += toupper(getSpecifiedInputStringChar(i));
+    }
+
+    setInput(temp);
+}
 
 void XOR::resizeKey()
 {
@@ -26,4 +39,7 @@ void XOR::bitwiseEncryption()
     {
         addToOutputString(getSpecifiedKeyStringChar(i) ^ getSpecifiedInputStringChar(i));
     }
+    
+    using namespace std;
+    cout << "stop";
 }

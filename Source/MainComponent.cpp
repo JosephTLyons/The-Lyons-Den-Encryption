@@ -108,10 +108,7 @@ MainComponent::MainComponent ()
     encryptionType->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     encryptionType->addItem (TRANS("3Keys"), 1);
     encryptionType->addItem (TRANS("XOR"), 2);
-    encryptionType->addItem (TRANS("Hashing"), 3);
-    encryptionType->addItem (TRANS("PGP"), 4);
-    encryptionType->addItem (TRANS("SAG"), 5);
-    encryptionType->addItem (TRANS("None"), 6);
+    encryptionType->addItem (TRANS("None"), 3);
     encryptionType->addListener (this);
 
     addAndMakeVisible (label = new Label ("new label",
@@ -232,7 +229,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         }
 
         // Begin none
-        if(encryptionType->getSelectedIdAsValue() == 6)
+        if(encryptionType->getSelectedIdAsValue() == 3)
         {
             // Simply route input text to output text
             outputTextEditor->setText(inputTextEditor->getText());
@@ -367,16 +364,19 @@ void MainComponent::enterXOR()
 {
     // clear output and input to start with blank strings
     xorObject.clearStrings();
-    
+
     // put text from text fields into the JUCE strings
     xorObject.getTextFromTextEditorsAndFillStrings(keyTextEditor->getText(), inputTextEditor->getText());
+
+    // make input all uppercase - XOR doesn't work with lowercase currently
+    //xorObject.makeUpperCase();
     
     // resize key
     xorObject.resizeKey();
-    
+
     // encrypt / decrypt text
     xorObject.bitwiseEncryption();
-    
+
     // set output text editor to new text
     outputTextEditor->setText(xorObject.getOutputString());
 }
@@ -435,8 +435,8 @@ BEGIN_JUCER_METADATA
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <COMBOBOX name="encryptionType" id="a9555f9683e5e791" memberName="encryptionType"
             virtualName="" explicitFocusOrder="0" pos="348 59 147 24" tooltip="3Keys - My custom encryption that's more of a proof of concept than a secure system.  Recommended to not use for sensitive data.&#10;&#10;XOR - Standaard xclusive or / Bitwise Encryption"
-            editable="0" layout="33" items="3Keys&#10;XOR&#10;Hashing&#10;PGP&#10;SAG&#10;None"
-            textWhenNonSelected="Encryption Type" textWhenNoItems="(no choices)"/>
+            editable="0" layout="33" items="3Keys&#10;XOR&#10;None" textWhenNonSelected="Encryption Type"
+            textWhenNoItems="(no choices)"/>
   <LABEL name="new label" id="393e5f12893a9600" memberName="label" virtualName=""
          explicitFocusOrder="0" pos="3 3 421 36" textCol="ffffffff" edTextCol="ff000000"
          edBkgCol="0" labelText="The Lyons' Den Encryption" editableSingleClick="0"
