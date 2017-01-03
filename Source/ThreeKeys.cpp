@@ -24,18 +24,6 @@
  
  */
 
-void ThreeKeys::clearStrings()
-{
-    inputTextString.clear();
-    outputTextString.clear();
-}
-
-void ThreeKeys::getTextFromTextEditorsAndFillStrings(const String &key, const String &input)
-{
-    keyString       = key;
-    inputTextString = input;
-}
-
 // main entry point for encryption of a JUCE string
 void ThreeKeys::encryptDecryptMessage(bool encryptionMode)
 {
@@ -54,44 +42,39 @@ void ThreeKeys::encryptDecryptMessage(bool encryptionMode)
     // encrypt mode selected
     if (encryptionMode == true)
     {
-        for (int i = 0; i < inputTextString.length(); i++)
+        for (int i = 0; i < getInputStringLenght(); i++)
         {
             // triple encrypt one character at a time
-            inputCharacter1 = inputTextString[i];
+            inputCharacter1 = getSpecifiedInputStringChar(i);
             inputCharacter2 = encryptLetter(inputCharacter1, key1);
             inputCharacter3 = encryptLetter(inputCharacter2, key2);
             
             // store that character
-            outputTextString += encryptLetter(inputCharacter3, key3);
+            addToOutputString(encryptLetter(inputCharacter3, key3));
         }
     }
 
     // decrypt mode selected
     else
     {
-        for (int i = 0; i < inputTextString.length(); i++)
+        for (int i = 0; i < getInputStringLenght(); i++)
         {
             // triple encrypt one character at a time
-            inputCharacter1 = inputTextString[i];
+            inputCharacter1 = getSpecifiedInputStringChar(i);
             inputCharacter2 = decryptLetter(inputCharacter1, key3);
             inputCharacter3 = decryptLetter(inputCharacter2, key2);
             
             // store that character
-            outputTextString += decryptLetter(inputCharacter3, key1);
+            addToOutputString(decryptLetter(inputCharacter3, key1));
         }
     }
 }
 
-String ThreeKeys::getOutputString()
-{
-    return outputTextString;
-}
-
 void ThreeKeys::convertKeyToNumber(int &keyNumber)
 {
-    for (int i = 0; i < keyString.length(); i++)
+    for (int i = 0; i < getKeyStringLength(); i++)
     {
-        keyNumber += (int) keyString[i];
+        keyNumber += (int) getSpecifiedKeyStringChar(i);
         keyNumber += i;
     }
 }

@@ -10,21 +10,19 @@
 #define JTL_Encryption_hpp
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "EncryptionStrings.hpp"
 
 #include <vector>
 
 using namespace std;
 
-class ThreeKeys
+class ThreeKeys : public EncryptionStrings
 {
     
 private:
     
     const int ASCII_RANGE_SIZE_94 = 94; //Range from ASCII value 32 to 126 = 94
     const int SHIFT_SET_32        = 32; //Move range up 32 values form (0-93) to (32 to 126)
-    String keyString;
-    String inputTextString;
-    String outputTextString;
     vector<char> key1;
     vector<char> key2;
     vector<char> key3;
@@ -40,10 +38,7 @@ private:
     
 public:
     
-    void clearStrings();
-    void getTextFromTextEditorsAndFillStrings(const String &key, const String &input);
     void encryptDecryptMessage(bool encryptionMode);
-    String getOutputString();
 };
 
 #endif /* JTL_Encryption_hpp */
