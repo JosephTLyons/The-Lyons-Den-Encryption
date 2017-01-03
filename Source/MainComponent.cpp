@@ -219,7 +219,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
             swapText->setEnabled(true);
         }
 
-        // Begin 3Keys
+        // Begin threeKeys
         if(encryptionType->getSelectedIdAsValue() == 1)
         {
             enterThreeKeys();
@@ -228,7 +228,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         // Begin XOR
         if(encryptionType->getSelectedIdAsValue() == 2)
         {
-            
+            enterXOR();
         }
 
         // Begin none
@@ -361,6 +361,11 @@ void MainComponent::enterThreeKeys()
 
     // set output text editor to new text
     outputTextEditor->setText(threeKeysObject.getOutputString());
+}
+
+void MainComponent::enterXOR()
+{
+    
 }
 
 //[/MiscUserCode]
