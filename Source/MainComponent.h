@@ -22,7 +22,7 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "JTL Encryption.hpp"
+#include "ThreeKeys.hpp"
 //[/Headers]
 
 
@@ -36,7 +36,8 @@
                                                                     //[/Comments]
 */
 class MainComponent  : public Component,
-                       public ButtonListener
+                       public ButtonListener,
+                       public ComboBoxListener
 {
 public:
     //==============================================================================
@@ -45,20 +46,22 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
+
+    void enterThreeKeys();
+
     //[/UserMethods]
 
     void paint (Graphics& g) override;
     void resized() override;
     void buttonClicked (Button* buttonThatWasClicked) override;
+    void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override;
 
 
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 
-    String keyString;
-    String inputTextString;
-    String outputTextString;
+    ThreeKeys threeKeysObject;
 
     // simply added to engage tool tips
     TooltipWindow toolTips;
@@ -76,6 +79,8 @@ private:
     ScopedPointer<ToggleButton> encryptionModeToggle;
     ScopedPointer<TextButton> copyToClipboard;
     ScopedPointer<TextButton> pasteToInput;
+    ScopedPointer<ComboBox> encryptionType;
+    ScopedPointer<Label> label;
 
 
     //==============================================================================

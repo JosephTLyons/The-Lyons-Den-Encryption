@@ -19,6 +19,8 @@
 
 //[Headers] You can add your own extra header files here...
 
+#include "ThreeKeys.hpp"
+
 //[/Headers]
 
 #include "MainComponent.h"
@@ -96,14 +98,45 @@ MainComponent::MainComponent ()
     pasteToInput->setConnectedEdges (Button::ConnectedOnLeft | Button::ConnectedOnRight);
     pasteToInput->addListener (this);
 
+    addAndMakeVisible (encryptionType = new ComboBox ("encryptionType"));
+    encryptionType->setTooltip (TRANS("3Keys - My custom encryption that\'s more of a proof of concept than a secure system.  Recommended to not use for sensitive data.\n"
+    "\n"
+    "XOR - Standaard xclusive or / Bitwise Encryption"));
+    encryptionType->setEditableText (false);
+    encryptionType->setJustificationType (Justification::centredLeft);
+    encryptionType->setTextWhenNothingSelected (TRANS("Encryption Type"));
+    encryptionType->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
+    encryptionType->addItem (TRANS("3Keys"), 1);
+    encryptionType->addItem (TRANS("XOR"), 2);
+    encryptionType->addItem (TRANS("Hashing"), 3);
+    encryptionType->addItem (TRANS("PGP"), 4);
+    encryptionType->addItem (TRANS("SAG"), 5);
+    encryptionType->addItem (TRANS("None"), 6);
+    encryptionType->addListener (this);
+
+    addAndMakeVisible (label = new Label ("new label",
+                                          TRANS("The Lyons\' Den Encryption")));
+    label->setFont (Font ("Britannic Bold", 34.40f, Font::plain));
+    label->setJustificationType (Justification::centredLeft);
+    label->setEditable (false, false, false);
+    label->setColour (Label::textColourId, Colours::white);
+    label->setColour (TextEditor::textColourId, Colours::black);
+    label->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
 
     //[UserPreSize]
     //[/UserPreSize]
 
-    setSize (500, 344);
+    setSize (500, 380);
 
 
     //[Constructor] You can add your own custom stuff here..
+
+    // highlights all text in text editors when clicked on
+    // so user can easily type over the previous message
+    keyTextEditor->setSelectAllWhenFocused(true);
+    inputTextEditor->setSelectAllWhenFocused(true);
+    outputTextEditor->setSelectAllWhenFocused(true);
 
     // start app with encryption mode on
     encryptionModeToggle->setToggleState(true, dontSendNotification);
@@ -129,6 +162,8 @@ MainComponent::~MainComponent()
     encryptionModeToggle = nullptr;
     copyToClipboard = nullptr;
     pasteToInput = nullptr;
+    encryptionType = nullptr;
+    label = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -152,16 +187,18 @@ void MainComponent::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    inputTextEditor->setBounds (8, 56, 336, 136);
-    outputTextEditor->setBounds (8, 200, 336, 136);
-    keyTextEditor->setBounds (8, 8, 336, 40);
-    encryptDecryptText->setBounds (348, 56, 147, 136);
-    clearText->setBounds (348, 292, 147, 45);
-    swapText->setBounds (348, 200, 147, 45);
-    decryptionModeToggle->setBounds (420, 6, 75, 24);
-    encryptionModeToggle->setBounds (348, 6, 75, 24);
-    copyToClipboard->setBounds (348, 246, 73, 45);
-    pasteToInput->setBounds (422, 246, 73, 45);
+    inputTextEditor->setBounds (8, 91, 336, 136);
+    outputTextEditor->setBounds (8, 235, 336, 136);
+    keyTextEditor->setBounds (8, 43, 336, 40);
+    encryptDecryptText->setBounds (348, 91, 147, 136);
+    clearText->setBounds (348, 327, 147, 45);
+    swapText->setBounds (348, 235, 147, 45);
+    decryptionModeToggle->setBounds (420, 36, 75, 24);
+    encryptionModeToggle->setBounds (348, 36, 75, 24);
+    copyToClipboard->setBounds (348, 281, 73, 45);
+    pasteToInput->setBounds (422, 281, 73, 45);
+    encryptionType->setBounds (348, 59, 147, 24);
+    label->setBounds (3, 3, 421, 36);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -175,10 +212,6 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     {
         //[UserButtonCode_encryptDecryptText] -- add your button handler code here..
 
-        // clear output and input to start with blank strings
-        outputTextString.clear();
-        inputTextString.clear();
-
         // if swap text button is disabled, turn it on
         // this only happens once
         if (!swapText->isEnabled())
@@ -186,15 +219,24 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
             swapText->setEnabled(true);
         }
 
-        // put text from text fields into the JUCE strings
-        keyString       = keyTextEditor->getText();
-        inputTextString = inputTextEditor->getText();
+        // Begin 3Keys
+        if(encryptionType->getSelectedIdAsValue() == 1)
+        {
+            enterThreeKeys();
+        }
 
-        // encrypt text
-        encryptDecryptMessage(keyString, inputTextString, outputTextString, encryptionModeToggle->getToggleState());
+        // Begin XOR
+        if(encryptionType->getSelectedIdAsValue() == 2)
+        {
+            
+        }
 
-        // set output text editor to new text
-        outputTextEditor->setText(outputTextString);
+        // Begin none
+        if(encryptionType->getSelectedIdAsValue() == 6)
+        {
+            // Simply route input text to output text
+            outputTextEditor->setText(inputTextEditor->getText());
+        }
 
         //[/UserButtonCode_encryptDecryptText]
     }
@@ -287,9 +329,40 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     //[/UserbuttonClicked_Post]
 }
 
+void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
+{
+    //[UsercomboBoxChanged_Pre]
+    //[/UsercomboBoxChanged_Pre]
+
+    if (comboBoxThatHasChanged == encryptionType)
+    {
+        //[UserComboBoxCode_encryptionType] -- add your combo box handling code here..
+        //[/UserComboBoxCode_encryptionType]
+    }
+
+    //[UsercomboBoxChanged_Post]
+    //[/UsercomboBoxChanged_Post]
+}
+
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
+
+void MainComponent::enterThreeKeys()
+{
+    // clear output and input to start with blank strings
+    threeKeysObject.clearStrings();
+
+    // put text from text fields into the JUCE strings
+    threeKeysObject.getTextFromTextEditorsAndFillStrings(keyTextEditor->getText(), inputTextEditor->getText());
+
+    // encrypt / decrypt text
+    threeKeysObject.encryptDecryptMessage(encryptionModeToggle->getToggleState());
+
+    // set output text editor to new text
+    outputTextEditor->setText(threeKeysObject.getOutputString());
+}
+
 //[/MiscUserCode]
 
 
@@ -305,43 +378,52 @@ BEGIN_JUCER_METADATA
 <JUCER_COMPONENT documentType="Component" className="MainComponent" componentName=""
                  parentClasses="public Component" constructorParams="" variableInitialisers=""
                  snapPixels="3" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="1" initialWidth="500" initialHeight="344">
+                 fixedSize="1" initialWidth="500" initialHeight="380">
   <BACKGROUND backgroundColour="ff000000"/>
   <TEXTEDITOR name="inputTextEditor" id="cd5cf2088e4b8391" memberName="inputTextEditor"
-              virtualName="" explicitFocusOrder="0" pos="8 56 336 136" initialText="Input Text Here"
+              virtualName="" explicitFocusOrder="0" pos="8 91 336 136" initialText="Input Text Here"
               multiline="1" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <TEXTEDITOR name="outputTextEditor" id="20825e2d4e657e11" memberName="outputTextEditor"
-              virtualName="" explicitFocusOrder="0" pos="8 200 336 136" initialText="Text Output Displayed Here"
+              virtualName="" explicitFocusOrder="0" pos="8 235 336 136" initialText="Text Output Displayed Here"
               multiline="1" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <TEXTEDITOR name="keyText" id="b5d11893eb6accf3" memberName="keyTextEditor"
-              virtualName="" explicitFocusOrder="0" pos="8 8 336 40" initialText="Input Key Here"
+              virtualName="" explicitFocusOrder="0" pos="8 43 336 40" initialText="Input Key Here"
               multiline="1" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <TEXTBUTTON name="new button" id="3bbb40b8fcf75027" memberName="encryptDecryptText"
-              virtualName="" explicitFocusOrder="0" pos="348 56 147 136" buttonText="Encrypt / Decrypt Text"
+              virtualName="" explicitFocusOrder="0" pos="348 91 147 136" buttonText="Encrypt / Decrypt Text"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="c83123a33c17aff6" memberName="clearText"
-              virtualName="" explicitFocusOrder="0" pos="348 292 147 45" buttonText="Clear Text"
+              virtualName="" explicitFocusOrder="0" pos="348 327 147 45" buttonText="Clear Text"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="3966e441c06b33be" memberName="swapText"
-              virtualName="" explicitFocusOrder="0" pos="348 200 147 45" tooltip="Swap Text is handy for testing purposes, to reassure that the encryption is working both ways."
+              virtualName="" explicitFocusOrder="0" pos="348 235 147 45" tooltip="Swap Text is handy for testing purposes, to reassure that the encryption is working both ways."
               buttonText="Swap Text" connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TOGGLEBUTTON name="decryptionModeToggle" id="eb69d3a92b08680f" memberName="decryptionModeToggle"
-                virtualName="" explicitFocusOrder="0" pos="420 6 75 24" txtcol="ffffffff"
+                virtualName="" explicitFocusOrder="0" pos="420 36 75 24" txtcol="ffffffff"
                 buttonText="Decrypt" connectedEdges="0" needsCallback="1" radioGroupId="0"
                 state="0"/>
   <TOGGLEBUTTON name="encryptionModeToggle" id="feb87990a59e0b0d" memberName="encryptionModeToggle"
-                virtualName="" explicitFocusOrder="0" pos="348 6 75 24" txtcol="ffffffff"
+                virtualName="" explicitFocusOrder="0" pos="348 36 75 24" txtcol="ffffffff"
                 buttonText="Encrypt" connectedEdges="0" needsCallback="1" radioGroupId="0"
                 state="0"/>
   <TEXTBUTTON name="copyToClipboard" id="f46788f09ba91384" memberName="copyToClipboard"
-              virtualName="" explicitFocusOrder="0" pos="348 246 73 45" buttonText="Copy"
+              virtualName="" explicitFocusOrder="0" pos="348 281 73 45" buttonText="Copy"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="pasteToInput" id="7be5641456548145" memberName="pasteToInput"
-              virtualName="" explicitFocusOrder="0" pos="422 246 73 45" buttonText="Paste"
+              virtualName="" explicitFocusOrder="0" pos="422 281 73 45" buttonText="Paste"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
+  <COMBOBOX name="encryptionType" id="a9555f9683e5e791" memberName="encryptionType"
+            virtualName="" explicitFocusOrder="0" pos="348 59 147 24" tooltip="3Keys - My custom encryption that's more of a proof of concept than a secure system.  Recommended to not use for sensitive data.&#10;&#10;XOR - Standaard xclusive or / Bitwise Encryption"
+            editable="0" layout="33" items="3Keys&#10;XOR&#10;Hashing&#10;PGP&#10;SAG&#10;None"
+            textWhenNonSelected="Encryption Type" textWhenNoItems="(no choices)"/>
+  <LABEL name="new label" id="393e5f12893a9600" memberName="label" virtualName=""
+         explicitFocusOrder="0" pos="3 3 421 36" textCol="ffffffff" edTextCol="ff000000"
+         edBkgCol="0" labelText="The Lyons' Den Encryption" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Britannic Bold"
+         fontsize="34.399999999999998579" bold="0" italic="0" justification="33"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
