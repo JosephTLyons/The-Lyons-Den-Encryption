@@ -14,10 +14,11 @@
 
 class XOR : public EncryptionStrings
 {
-    
-private:
-    
+
 public:
+    
+    void resizeKey();
+    void bitwiseEncryption();
 
 
 };

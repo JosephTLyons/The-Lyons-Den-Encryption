@@ -38,7 +38,7 @@ private:
     
 public:
     
-    void encryptDecryptMessage(bool encryptionMode);
+    void encryptDecryptMessage(bool encryptionEnabled);
 };
 
 #endif /* JTL_Encryption_hpp */

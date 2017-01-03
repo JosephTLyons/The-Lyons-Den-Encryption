@@ -21,6 +21,8 @@ private:
     
 public:
     
+    void setKey(const String &input);
+    
     void clearStrings();
     void getTextFromTextEditorsAndFillStrings(const String &key, const String &input);
     
@@ -28,7 +30,7 @@ public:
     String getOutputString();
     String getKeyString();
     
-    int getInputStringLenght();
+    int getInputStringLength();
     int getOutputStringLenght();
     int getKeyStringLength();
     

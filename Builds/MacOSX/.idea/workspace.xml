@@ -28,11 +28,51 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ThreeKeys.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EncryptionStrings.hpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../../Source/EncryptionStrings.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ThreeKeys.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../Source/ThreeKeys.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="24" column="3" lean-forward="true" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
+            <state relative-caret-position="195">
+              <caret line="27" column="53" lean-forward="false" selection-start-line="27" selection-start-column="53" selection-end-line="27" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XOR.hpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../Source/XOR.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="19" column="9" lean-forward="false" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XOR.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../Source/XOR.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="14" column="54" lean-forward="false" selection-start-line="14" selection-start-column="54" selection-end-line="14" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainComponent.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../Source/MainComponent.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="374" column="19" lean-forward="false" selection-start-line="374" selection-start-column="19" selection-end-line="374" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -49,6 +89,8 @@
         <option value="$PROJECT_DIR$/../../Source/MainComponent.cpp" />
         <option value="$PROJECT_DIR$/../../Source/ThreeKeys.hpp" />
         <option value="$PROJECT_DIR$/../../Source/ThreeKeys.cpp" />
+        <option value="$PROJECT_DIR$/../../Source/XOR.cpp" />
+        <option value="$PROJECT_DIR$/../../Source/EncryptionStrings.hpp" />
       </list>
     </option>
   </component>
@@ -152,12 +194,12 @@
       <workItem from="1483274552562" duration="114000" />
       <workItem from="1483274703686" duration="15000" />
       <workItem from="1483390148646" duration="259000" />
-      <workItem from="1483443376449" duration="416000" />
+      <workItem from="1483443376449" duration="1536000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1237000" />
+    <option name="totallyTimeSpent" value="2357000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -170,7 +212,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1366" height="741" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24981412" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -293,10 +335,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../../Source/ThreeKeys.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="27" column="53" lean-forward="false" selection-start-line="27" selection-start-column="53" selection-end-line="27" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../../Source/MainComponent.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="292" column="13" lean-forward="false" selection-start-line="292" selection-start-column="13" selection-end-line="292" selection-end-column="13" />
+        <state relative-caret-position="231">
+          <caret line="374" column="19" lean-forward="false" selection-start-line="374" selection-start-column="19" selection-end-line="374" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Source/XOR.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="19" column="9" lean-forward="false" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Source/XOR.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="54" lean-forward="false" selection-start-line="14" selection-start-column="54" selection-end-line="14" selection-end-column="54" />
           <folding />
         </state>
       </provider>
@@ -309,10 +375,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../Source/ThreeKeys.cpp">
+    <entry file="file://$PROJECT_DIR$/../../Source/EncryptionStrings.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="24" column="3" lean-forward="true" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>

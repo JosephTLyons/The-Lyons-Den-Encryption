@@ -23,6 +23,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "ThreeKeys.hpp"
+#include "XOR.hpp"
 //[/Headers]
 
 
@@ -57,12 +58,11 @@ public:
     void buttonClicked (Button* buttonThatWasClicked) override;
     void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override;
 
-
-
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 
     ThreeKeys threeKeysObject;
+    XOR       xorObject;
 
     // simply added to engage tool tips
     TooltipWindow toolTips;

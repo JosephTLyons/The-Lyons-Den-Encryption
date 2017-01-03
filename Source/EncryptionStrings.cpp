@@ -8,6 +8,12 @@
 
 #include "EncryptionStrings.hpp"
 
+void EncryptionStrings::setKey(const String &input)
+{
+    keyString.clear();
+    keyString = input;
+}
+
 void EncryptionStrings::clearStrings()
 {
     inputTextString.clear();
@@ -32,10 +38,10 @@ String EncryptionStrings::getOutputString()
 
 String EncryptionStrings::getKeyString()
 {
-    return outputTextString;
+    return keyString;
 }
 
-int EncryptionStrings::getInputStringLenght()
+int EncryptionStrings::getInputStringLength()
 {
     return inputTextString.length();
 }

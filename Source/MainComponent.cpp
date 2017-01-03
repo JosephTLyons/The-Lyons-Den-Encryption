@@ -365,7 +365,20 @@ void MainComponent::enterThreeKeys()
 
 void MainComponent::enterXOR()
 {
+    // clear output and input to start with blank strings
+    xorObject.clearStrings();
     
+    // put text from text fields into the JUCE strings
+    xorObject.getTextFromTextEditorsAndFillStrings(keyTextEditor->getText(), inputTextEditor->getText());
+    
+    // resize key
+    xorObject.resizeKey();
+    
+    // encrypt / decrypt text
+    xorObject.bitwiseEncryption();
+    
+    // set output text editor to new text
+    outputTextEditor->setText(xorObject.getOutputString());
 }
 
 //[/MiscUserCode]

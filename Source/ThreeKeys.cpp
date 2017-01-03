@@ -25,7 +25,7 @@
  */
 
 // main entry point for encryption of a JUCE string
-void ThreeKeys::encryptDecryptMessage(bool encryptionMode)
+void ThreeKeys::encryptDecryptMessage(bool encryptionEnabled)
 {
     int  keyNumber = convertKeyToNumber();
     char inputCharacter1, inputCharacter2, inputCharacter3;
@@ -38,9 +38,9 @@ void ThreeKeys::encryptDecryptMessage(bool encryptionMode)
     fillCaesarKeys(keyNumber);
 
     // encrypt mode selected
-    if (encryptionMode == true)
+    if (encryptionEnabled == true)
     {
-        for (int i = 0; i < getInputStringLenght(); i++)
+        for (int i = 0; i < getInputStringLength(); i++)
         {
             // triple encrypt one character at a time
             inputCharacter1 = getSpecifiedInputStringChar(i);
@@ -55,7 +55,7 @@ void ThreeKeys::encryptDecryptMessage(bool encryptionMode)
     // decrypt mode selected
     else
     {
-        for (int i = 0; i < getInputStringLenght(); i++)
+        for (int i = 0; i < getInputStringLength(); i++)
         {
             // triple encrypt one character at a time
             inputCharacter1 = getSpecifiedInputStringChar(i);
