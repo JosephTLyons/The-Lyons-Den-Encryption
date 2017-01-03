@@ -15,6 +15,8 @@
 		789C4ADE97822E07D1EE2693 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288CD909C7F998DB6ECF6089 /* Carbon.framework */; };
 		7A0599574579B6231CBE08DD /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53C8104C9C9A6F2ACB97EF95 /* WebKit.framework */; };
 		7AD0D651A77D4490818DB560 /* juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF05A3D6F1AE3A21587D613E /* juce_events.mm */; };
+		99D753D81E1B81E90001A3C9 /* ThreeKeys.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99D753D41E1B81E90001A3C9 /* ThreeKeys.cpp */; };
+		99D753D91E1B81E90001A3C9 /* XOR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99D753D61E1B81E90001A3C9 /* XOR.cpp */; };
 		9CB315CC0F6E614ECC78AE39 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 9BEDE2068EE5352008E6670A /* RecentFilesMenuTemplate.nib */; };
 		A441A6E8896540055D1553C3 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BBFE7E64E18DD03C2077478 /* Main.cpp */; };
 		CAF085872569C5DED5FF6E38 /* juce_cryptography.mm in Sources */ = {isa = PBXBuildFile; fileRef = C69156EC38F2C009E6207745 /* juce_cryptography.mm */; };
@@ -490,6 +492,10 @@
 		995675687CFF35958C39424C /* juce_ReadWriteLock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_ReadWriteLock.cpp; path = ../../../../Libraries/JUCE/modules/juce_core/threads/juce_ReadWriteLock.cpp; sourceTree = SOURCE_ROOT; };
 		996925DC00E9DC68B74D61F9 /* juce_TimeSliceThread.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_TimeSliceThread.cpp; path = ../../../../Libraries/JUCE/modules/juce_core/threads/juce_TimeSliceThread.cpp; sourceTree = SOURCE_ROOT; };
 		99CEB91FACC2CF3D9150289F /* juce_core.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_core.mm; path = ../../JuceLibraryCode/juce_core.mm; sourceTree = SOURCE_ROOT; };
+		99D753D41E1B81E90001A3C9 /* ThreeKeys.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ThreeKeys.cpp; path = ../../Source/ThreeKeys.cpp; sourceTree = "<group>"; };
+		99D753D51E1B81E90001A3C9 /* ThreeKeys.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ThreeKeys.hpp; path = ../../Source/ThreeKeys.hpp; sourceTree = "<group>"; };
+		99D753D61E1B81E90001A3C9 /* XOR.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = XOR.cpp; path = ../../Source/XOR.cpp; sourceTree = "<group>"; };
+		99D753D71E1B81E90001A3C9 /* XOR.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = XOR.hpp; path = ../../Source/XOR.hpp; sourceTree = "<group>"; };
 		9A0B644F0E920BF18306E790 /* juce_BigInteger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_BigInteger.cpp; path = ../../../../Libraries/JUCE/modules/juce_core/maths/juce_BigInteger.cpp; sourceTree = SOURCE_ROOT; };
 		9A12E7846102FA3AFCBDFCF8 /* juce_PropertiesFile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_PropertiesFile.cpp; path = ../../../../Libraries/JUCE/modules/juce_data_structures/app_properties/juce_PropertiesFile.cpp; sourceTree = SOURCE_ROOT; };
 		9A25DE132061C5352DAD6BA0 /* juce_TextLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_TextLayout.h; path = ../../../../Libraries/JUCE/modules/juce_graphics/fonts/juce_TextLayout.h; sourceTree = SOURCE_ROOT; };
@@ -1531,6 +1537,10 @@
 				2BBFE7E64E18DD03C2077478 /* Main.cpp */,
 				B5DAF397BB88E2E4579EA281 /* MainComponent.h */,
 				72DC539F051CF76C8A63B6EA /* MainComponent.cpp */,
+				99D753D51E1B81E90001A3C9 /* ThreeKeys.hpp */,
+				99D753D41E1B81E90001A3C9 /* ThreeKeys.cpp */,
+				99D753D71E1B81E90001A3C9 /* XOR.hpp */,
+				99D753D61E1B81E90001A3C9 /* XOR.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -2308,9 +2318,11 @@
 				CAF085872569C5DED5FF6E38 /* juce_cryptography.mm in Sources */,
 				42CE1ACDAA79282B748CE4DC /* juce_data_structures.mm in Sources */,
 				7AD0D651A77D4490818DB560 /* juce_events.mm in Sources */,
+				99D753D81E1B81E90001A3C9 /* ThreeKeys.cpp in Sources */,
 				2A17D927C6409253623BC9B1 /* juce_graphics.mm in Sources */,
 				FB8EEA2BE99BE0A53FEA16C8 /* juce_gui_basics.mm in Sources */,
 				F59BA093760652432C1054AF /* juce_gui_extra.mm in Sources */,
+				99D753D91E1B81E90001A3C9 /* XOR.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
