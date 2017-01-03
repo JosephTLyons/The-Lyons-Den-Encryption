@@ -19,8 +19,6 @@
 
 //[Headers] You can add your own extra header files here...
 
-#include "JTL Encryption.hpp"
-
 //[/Headers]
 
 #include "MainComponent.h"
