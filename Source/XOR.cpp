@@ -8,17 +8,6 @@
 
 #include "XOR.hpp"
 
-void XOR::clearStrings()
-{
-    inputTextString.clear();
-    outputTextString.clear();
-}
-
-void XOR::getTextFromTextEditorsAndFillStrings(const String &key, const String &input)
-{
-    keyString       = key;
-    inputTextString = input;
-}
 
 
 

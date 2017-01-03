@@ -10,20 +10,14 @@
 #define XOR_hpp
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "EncryptionStrings.hpp"
 
-class XOR
+class XOR : public EncryptionStrings
 {
     
 private:
     
-    String keyString;
-    String inputTextString;
-    String outputTextString;
-    
 public:
-    
-    void clearStrings();
-    void getTextFromTextEditorsAndFillStrings(const String &key, const String &input);
 
 
 };

@@ -27,17 +27,15 @@
 // main entry point for encryption of a JUCE string
 void ThreeKeys::encryptDecryptMessage(bool encryptionMode)
 {
-    int  keyNumber = 1;
+    int  keyNumber = convertKeyToNumber();
     char inputCharacter1, inputCharacter2, inputCharacter3;
-    
-    convertKeyToNumber(keyNumber);
     
     // Seed number for my random number generator
     srand(keyNumber);
     
     clearAndResizeKeys();
 
-    fillKeys(keyNumber);
+    fillCaesarKeys(keyNumber);
 
     // encrypt mode selected
     if (encryptionMode == true)
@@ -46,11 +44,11 @@ void ThreeKeys::encryptDecryptMessage(bool encryptionMode)
         {
             // triple encrypt one character at a time
             inputCharacter1 = getSpecifiedInputStringChar(i);
-            inputCharacter2 = encryptLetter(inputCharacter1, key1);
-            inputCharacter3 = encryptLetter(inputCharacter2, key2);
+            inputCharacter2 = encryptLetter(inputCharacter1, caesarKey1);
+            inputCharacter3 = encryptLetter(inputCharacter2, caesarKey2);
             
             // store that character
-            addToOutputString(encryptLetter(inputCharacter3, key3));
+            addToOutputString(encryptLetter(inputCharacter3, caesarKey3));
         }
     }
 
@@ -61,46 +59,50 @@ void ThreeKeys::encryptDecryptMessage(bool encryptionMode)
         {
             // triple encrypt one character at a time
             inputCharacter1 = getSpecifiedInputStringChar(i);
-            inputCharacter2 = decryptLetter(inputCharacter1, key3);
-            inputCharacter3 = decryptLetter(inputCharacter2, key2);
+            inputCharacter2 = decryptLetter(inputCharacter1, caesarKey3);
+            inputCharacter3 = decryptLetter(inputCharacter2, caesarKey2);
             
             // store that character
-            addToOutputString(decryptLetter(inputCharacter3, key1));
+            addToOutputString(decryptLetter(inputCharacter3, caesarKey1));
         }
     }
 }
 
-void ThreeKeys::convertKeyToNumber(int &keyNumber)
+int ThreeKeys::convertKeyToNumber()
 {
+    int keyNumber = 0;
+
     for (int i = 0; i < getKeyStringLength(); i++)
     {
         keyNumber += (int) getSpecifiedKeyStringChar(i);
         keyNumber += i;
     }
+
+    return keyNumber;
 }
 
 void ThreeKeys::clearAndResizeKeys()
 {
-    key1.clear();
-    key2.clear();
-    key3.clear();
+    caesarKey1.clear();
+    caesarKey2.clear();
+    caesarKey3.clear();
     
-    key1.resize(ASCII_RANGE_SIZE_94);
-    key2.resize(ASCII_RANGE_SIZE_94);
-    key3.resize(ASCII_RANGE_SIZE_94);
+    caesarKey1.resize(ASCII_RANGE_SIZE_94);
+    caesarKey2.resize(ASCII_RANGE_SIZE_94);
+    caesarKey3.resize(ASCII_RANGE_SIZE_94);
 }
 
-void ThreeKeys::fillKeys(const int &keyNumber)
+void ThreeKeys::fillCaesarKeys(const int &keyNumber)
 {
     // CYCLE THROUGH THE RANDOM NUMBERS WITH PASSWORDNUMBER TO ARRIVE AT A TRULY RANDOM
     // NUMBER AND FILL THREE KEYS, EACH WITH THEIR OWN UNIQUE SET OF NUMBERS
     
     cycleThroughRandomNumbers(keyNumber);
-    fillKey(key1);
+    fillCaesarKey(caesarKey1);
     cycleThroughRandomNumbers(keyNumber);
-    fillKey(key2);
+    fillCaesarKey(caesarKey2);
     cycleThroughRandomNumbers(keyNumber);
-    fillKey(key3);
+    fillCaesarKey(caesarKey3);
 }
 
 // Cycles through random numbers randomly to help arrive at a truly random number
@@ -115,7 +117,7 @@ void ThreeKeys::cycleThroughRandomNumbers(const int &keyNumber)
 }
 
 // Fills the key array with random characters
-void ThreeKeys::fillKey(vector<char> &keyBeingFilled)
+void ThreeKeys::fillCaesarKey(vector<char> &caesarKeyBeingFilled)
 {
     int RandomNumber;
     int KeySpot, j;
@@ -128,7 +130,7 @@ void ThreeKeys::fillKey(vector<char> &keyBeingFilled)
         //this bit of code checks to make sure new rand number isn't already used before
         for (j = 0; j <= KeySpot; ++j)
         {
-            if (keyBeingFilled[j] == RandomNumber)
+            if (caesarKeyBeingFilled[j] == RandomNumber)
             {
                 // limits numbers to 0-93, then shifts up to 32-126 ASCII range
                 RandomNumber = SHIFT_SET_32 + rand() % ASCII_RANGE_SIZE_94;
@@ -138,21 +140,21 @@ void ThreeKeys::fillKey(vector<char> &keyBeingFilled)
             }
         }
         
-        keyBeingFilled[KeySpot] = (char) RandomNumber;
+        caesarKeyBeingFilled[KeySpot] = (char) RandomNumber;
     }
 }
 
-char ThreeKeys::encryptLetter(const char &input, vector<char> &currentKey)
+char ThreeKeys::encryptLetter(const char &input, vector<char> &currentCaesarKey)
 {
     //-32 to get range back into 1-95 (range of Key)
-    return currentKey[((int) input) - SHIFT_SET_32];
+    return currentCaesarKey[((int) input) - SHIFT_SET_32];
 }
 
-char ThreeKeys::decryptLetter(const char &input, vector<char> &currentKey)
+char ThreeKeys::decryptLetter(const char &input, vector<char> &currentCaesarKey)
 {
     for (int Count = 0; Count < ASCII_RANGE_SIZE_94; ++Count)
     {
-        if ((int) input == currentKey[Count])
+        if ((int) input == currentCaesarKey[Count])
         {
             //+32 to get back into 32-126 ASCII range
             return (char) Count+SHIFT_SET_32;
