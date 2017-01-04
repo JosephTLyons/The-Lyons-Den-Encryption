@@ -113,7 +113,7 @@ MainComponent::MainComponent ()
 
     addAndMakeVisible (label = new Label ("new label",
                                           TRANS("The Lyons\' Den Encryption")));
-    label->setFont (Font ("Britannic Bold", 34.40f, Font::plain));
+    label->setFont (Font ("Britannic Bold", 42.40f, Font::plain));
     label->setJustificationType (Justification::centredLeft);
     label->setEditable (false, false, false);
     label->setColour (Label::textColourId, Colours::white);
@@ -124,7 +124,7 @@ MainComponent::MainComponent ()
     //[UserPreSize]
     //[/UserPreSize]
 
-    setSize (500, 380);
+    setSize (500, 385);
 
 
     //[Constructor] You can add your own custom stuff here..
@@ -184,18 +184,18 @@ void MainComponent::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    inputTextEditor->setBounds (8, 91, 336, 136);
-    outputTextEditor->setBounds (8, 235, 336, 136);
-    keyTextEditor->setBounds (8, 43, 336, 40);
-    encryptDecryptText->setBounds (348, 91, 147, 136);
-    clearText->setBounds (348, 327, 147, 45);
-    swapText->setBounds (348, 235, 147, 45);
-    decryptionModeToggle->setBounds (420, 36, 75, 24);
-    encryptionModeToggle->setBounds (348, 36, 75, 24);
-    copyToClipboard->setBounds (348, 281, 73, 45);
-    pasteToInput->setBounds (422, 281, 73, 45);
-    encryptionType->setBounds (348, 59, 147, 24);
-    label->setBounds (3, 3, 421, 36);
+    inputTextEditor->setBounds (7, 96, 336, 136);
+    outputTextEditor->setBounds (7, 240, 336, 136);
+    keyTextEditor->setBounds (7, 48, 336, 40);
+    encryptDecryptText->setBounds (347, 96, 147, 136);
+    clearText->setBounds (347, 332, 147, 45);
+    swapText->setBounds (347, 240, 147, 45);
+    decryptionModeToggle->setBounds (419, 41, 75, 24);
+    encryptionModeToggle->setBounds (347, 41, 75, 24);
+    copyToClipboard->setBounds (347, 286, 73, 45);
+    pasteToInput->setBounds (421, 286, 73, 45);
+    encryptionType->setBounds (347, 64, 147, 24);
+    label->setBounds (2, 2, 495, 44);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -370,7 +370,7 @@ void MainComponent::enterXOR()
 
     // make input all uppercase - XOR doesn't work with lowercase currently
     //xorObject.makeUpperCase();
-    
+
     // resize key
     xorObject.resizeKey();
 
@@ -396,52 +396,52 @@ BEGIN_JUCER_METADATA
 <JUCER_COMPONENT documentType="Component" className="MainComponent" componentName=""
                  parentClasses="public Component" constructorParams="" variableInitialisers=""
                  snapPixels="3" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="1" initialWidth="500" initialHeight="380">
+                 fixedSize="1" initialWidth="500" initialHeight="385">
   <BACKGROUND backgroundColour="ff000000"/>
   <TEXTEDITOR name="inputTextEditor" id="cd5cf2088e4b8391" memberName="inputTextEditor"
-              virtualName="" explicitFocusOrder="0" pos="8 91 336 136" initialText="Input Text Here"
+              virtualName="" explicitFocusOrder="0" pos="7 96 336 136" initialText="Input Text Here"
               multiline="1" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <TEXTEDITOR name="outputTextEditor" id="20825e2d4e657e11" memberName="outputTextEditor"
-              virtualName="" explicitFocusOrder="0" pos="8 235 336 136" initialText="Text Output Displayed Here"
+              virtualName="" explicitFocusOrder="0" pos="7 240 336 136" initialText="Text Output Displayed Here"
               multiline="1" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <TEXTEDITOR name="keyText" id="b5d11893eb6accf3" memberName="keyTextEditor"
-              virtualName="" explicitFocusOrder="0" pos="8 43 336 40" initialText="Input Key Here"
+              virtualName="" explicitFocusOrder="0" pos="7 48 336 40" initialText="Input Key Here"
               multiline="1" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <TEXTBUTTON name="new button" id="3bbb40b8fcf75027" memberName="encryptDecryptText"
-              virtualName="" explicitFocusOrder="0" pos="348 91 147 136" buttonText="Encrypt / Decrypt Text"
+              virtualName="" explicitFocusOrder="0" pos="347 96 147 136" buttonText="Encrypt / Decrypt Text"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="c83123a33c17aff6" memberName="clearText"
-              virtualName="" explicitFocusOrder="0" pos="348 327 147 45" buttonText="Clear Text"
+              virtualName="" explicitFocusOrder="0" pos="347 332 147 45" buttonText="Clear Text"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="3966e441c06b33be" memberName="swapText"
-              virtualName="" explicitFocusOrder="0" pos="348 235 147 45" tooltip="Swap Text is handy for testing purposes, to reassure that the encryption is working both ways."
+              virtualName="" explicitFocusOrder="0" pos="347 240 147 45" tooltip="Swap Text is handy for testing purposes, to reassure that the encryption is working both ways."
               buttonText="Swap Text" connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TOGGLEBUTTON name="decryptionModeToggle" id="eb69d3a92b08680f" memberName="decryptionModeToggle"
-                virtualName="" explicitFocusOrder="0" pos="420 36 75 24" txtcol="ffffffff"
+                virtualName="" explicitFocusOrder="0" pos="419 41 75 24" txtcol="ffffffff"
                 buttonText="Decrypt" connectedEdges="0" needsCallback="1" radioGroupId="0"
                 state="0"/>
   <TOGGLEBUTTON name="encryptionModeToggle" id="feb87990a59e0b0d" memberName="encryptionModeToggle"
-                virtualName="" explicitFocusOrder="0" pos="348 36 75 24" txtcol="ffffffff"
+                virtualName="" explicitFocusOrder="0" pos="347 41 75 24" txtcol="ffffffff"
                 buttonText="Encrypt" connectedEdges="0" needsCallback="1" radioGroupId="0"
                 state="0"/>
   <TEXTBUTTON name="copyToClipboard" id="f46788f09ba91384" memberName="copyToClipboard"
-              virtualName="" explicitFocusOrder="0" pos="348 281 73 45" buttonText="Copy"
+              virtualName="" explicitFocusOrder="0" pos="347 286 73 45" buttonText="Copy"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="pasteToInput" id="7be5641456548145" memberName="pasteToInput"
-              virtualName="" explicitFocusOrder="0" pos="422 281 73 45" buttonText="Paste"
+              virtualName="" explicitFocusOrder="0" pos="421 286 73 45" buttonText="Paste"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <COMBOBOX name="encryptionType" id="a9555f9683e5e791" memberName="encryptionType"
-            virtualName="" explicitFocusOrder="0" pos="348 59 147 24" tooltip="3Keys - My custom encryption that's more of a proof of concept than a secure system.  Recommended to not use for sensitive data.&#10;&#10;XOR - Standaard xclusive or / Bitwise Encryption"
+            virtualName="" explicitFocusOrder="0" pos="347 64 147 24" tooltip="3Keys - My custom encryption that's more of a proof of concept than a secure system.  Recommended to not use for sensitive data.&#10;&#10;XOR - Standaard xclusive or / Bitwise Encryption"
             editable="0" layout="33" items="3Keys&#10;XOR&#10;None" textWhenNonSelected="Encryption Type"
             textWhenNoItems="(no choices)"/>
   <LABEL name="new label" id="393e5f12893a9600" memberName="label" virtualName=""
-         explicitFocusOrder="0" pos="3 3 421 36" textCol="ffffffff" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="2 2 495 44" textCol="ffffffff" edTextCol="ff000000"
          edBkgCol="0" labelText="The Lyons' Den Encryption" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Britannic Bold"
-         fontsize="34.399999999999998579" bold="0" italic="0" justification="33"/>
+         fontsize="42.399999999999998579" bold="0" italic="0" justification="33"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
