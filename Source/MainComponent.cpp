@@ -369,7 +369,9 @@ void MainComponent::enterXOR()
     xorObject.getTextFromTextEditorsAndFillStrings(keyTextEditor->getText(), inputTextEditor->getText());
 
     // make input all uppercase - XOR doesn't work with lowercase currently
-    //xorObject.makeUpperCase();
+
+    if(encryptionModeToggle->getToggleState())
+        xorObject.makeUpperCase();
 
     // resize key
     xorObject.resizeKey();

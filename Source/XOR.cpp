@@ -15,7 +15,7 @@ void XOR::makeUpperCase()
     
     for(int i = 0; i < getInputStringLength(); i++)
     {
-        temp += toupper(getSpecifiedInputStringChar(i));
+        temp += (char) toupper(getSpecifiedInputStringChar(i));
     }
 
     setInput(temp);
