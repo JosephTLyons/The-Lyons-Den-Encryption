@@ -17,10 +17,9 @@ class XOR : public EncryptionStrings
 
 public:
     
-    void makeUpperCase();
     void resizeKey();
     void bitwiseEncryption();
-
+    void convertStringToHex();
 
 };
 

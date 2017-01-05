@@ -173,7 +173,7 @@ void MainComponent::paint (Graphics& g)
     //[UserPrePaint] Add your own custom painting code here..
     //[/UserPrePaint]
 
-    g.fillAll (Colours::black);
+    g.fillAll (Colour (0xff343434));
 
     //[UserPaint] Add your own custom painting code here..
     //[/UserPaint]
@@ -368,16 +368,23 @@ void MainComponent::enterXOR()
     // put text from text fields into the JUCE strings
     xorObject.getTextFromTextEditorsAndFillStrings(keyTextEditor->getText(), inputTextEditor->getText());
 
-    // make input all uppercase - XOR doesn't work with lowercase currently
-
-    if(encryptionModeToggle->getToggleState())
-        xorObject.makeUpperCase();
+    // if decrypt mode is on, convert from hex to ASCII
+    if (decryptionModeToggle->getToggleState())
+    {
+        // convertFromHexToString
+    }
 
     // resize key
     xorObject.resizeKey();
 
     // encrypt / decrypt text
     xorObject.bitwiseEncryption();
+
+    // if encrypt mode is on, convert from ASCII to hex
+    if (encryptionModeToggle->getToggleState())
+    {
+        xorObject.convertStringToHex();
+    }
 
     // set output text editor to new text
     outputTextEditor->setText(xorObject.getOutputString());
@@ -399,7 +406,7 @@ BEGIN_JUCER_METADATA
                  parentClasses="public Component" constructorParams="" variableInitialisers=""
                  snapPixels="3" snapActive="1" snapShown="1" overlayOpacity="0.330"
                  fixedSize="1" initialWidth="500" initialHeight="385">
-  <BACKGROUND backgroundColour="ff000000"/>
+  <BACKGROUND backgroundColour="ff343434"/>
   <TEXTEDITOR name="inputTextEditor" id="cd5cf2088e4b8391" memberName="inputTextEditor"
               virtualName="" explicitFocusOrder="0" pos="7 96 336 136" initialText="Input Text Here"
               multiline="1" retKeyStartsLine="0" readonly="0" scrollbars="1"

@@ -23,6 +23,7 @@ public:
     
     void setKey(const String &input);
     void setInput(const String &input);
+    void setOutput(const String &input);
     
     void clearStrings();
     void getTextFromTextEditorsAndFillStrings(const String &key, const String &input);

@@ -20,6 +20,12 @@ void EncryptionStrings::setInput(const String &input)
     inputTextString = input;
 }
 
+void EncryptionStrings::setOutput(const String &input)
+{
+    outputTextString.clear();
+    outputTextString = input;
+}
+
 void EncryptionStrings::clearStrings()
 {
     inputTextString.clear();
