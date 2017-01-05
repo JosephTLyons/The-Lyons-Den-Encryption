@@ -203,38 +203,56 @@ void MainComponent::resized()
 void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 {
     //[UserbuttonClicked_Pre]
+    
+    String checkToSeeIfKeyTextExists = keyTextEditor->getText();
+    
     //[/UserbuttonClicked_Pre]
 
     if (buttonThatWasClicked == encryptDecryptText)
     {
         //[UserButtonCode_encryptDecryptText] -- add your button handler code here..
-
-        // if swap text button is disabled, turn it on
-        // this only happens once
-        if (!swapText->isEnabled())
+        
+        // make sure key has text in it (without this, the app will crash with no text in key)
+        if (checkToSeeIfKeyTextExists.length() != 0)
         {
-            swapText->setEnabled(true);
+            // if swap text button is disabled, turn it on
+            // this only happens once
+            if (!swapText->isEnabled())
+            {
+                swapText->setEnabled(true);
+            }
+            
+            // set background color of keyTextEditor white
+            keyTextEditor->setColour (TextEditor::backgroundColourId, Colours::white);
+            
+            // Begin threeKeys
+            if(encryptionType->getSelectedIdAsValue() == 1)
+            {
+                enterThreeKeys();
+            }
+            
+            // Begin XOR
+            if(encryptionType->getSelectedIdAsValue() == 2)
+            {
+                //enterXOR(); - turned off until fixed
+            }
+            
+            // Begin none
+            if(encryptionType->getSelectedIdAsValue() == 3)
+            {
+                // Simply route input text to output text
+                outputTextEditor->setText(inputTextEditor->getText());
+            }
         }
-
-        // Begin threeKeys
-        if(encryptionType->getSelectedIdAsValue() == 1)
+        
+        // Send message specifying what to do, which also serves as a temp key
+        else
         {
-            enterThreeKeys();
+            // change color to highlight the fact the user didn't input a key
+            keyTextEditor->setColour (TextEditor::backgroundColourId, Colour (0xffcd9292));
+            keyTextEditor->setText("Please Enter a Key");
         }
-
-        // Begin XOR
-        if(encryptionType->getSelectedIdAsValue() == 2)
-        {
-            //enterXOR(); - turned off until fixed
-        }
-
-        // Begin none
-        if(encryptionType->getSelectedIdAsValue() == 3)
-        {
-            // Simply route input text to output text
-            outputTextEditor->setText(inputTextEditor->getText());
-        }
-
+        
         //[/UserButtonCode_encryptDecryptText]
     }
     else if (buttonThatWasClicked == clearText)
@@ -352,20 +370,12 @@ void MainComponent::enterThreeKeys()
 
     // put text from text fields into the JUCE strings
     threeKeysObject.getTextFromTextEditorsAndFillStrings(keyTextEditor->getText(), inputTextEditor->getText());
-    
-    // make sure key has text in it (without this, the app will crash with no text in key)
-    if(threeKeysObject.getKeyStringLength() != 0)
-    {
-        // encrypt / decrypt text
-        threeKeysObject.encryptDecryptMessage(encryptionModeToggle->getToggleState());
-        
-        // set output text editor to new text
-        outputTextEditor->setText(threeKeysObject.getOutputString());
-    }
-    
-    // Send message specifying what to do, which also serves as a temp key
-    else
-        keyTextEditor->setText("Please enter a key");
+
+    // encrypt / decrypt text
+    threeKeysObject.encryptDecryptMessage(encryptionModeToggle->getToggleState());
+
+    // set output text editor to new text
+    outputTextEditor->setText(threeKeysObject.getOutputString());
 }
 
 void MainComponent::enterXOR()
@@ -424,9 +434,9 @@ BEGIN_JUCER_METADATA
               multiline="1" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <TEXTEDITOR name="keyText" id="b5d11893eb6accf3" memberName="keyTextEditor"
-              virtualName="" explicitFocusOrder="0" pos="7 48 336 40" initialText="Input Key Here"
-              multiline="1" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
+              virtualName="" explicitFocusOrder="0" pos="7 48 336 40" bkgcol="ffffffff"
+              initialText="Input Key Here" multiline="1" retKeyStartsLine="0"
+              readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
   <TEXTBUTTON name="new button" id="3bbb40b8fcf75027" memberName="encryptDecryptText"
               virtualName="" explicitFocusOrder="0" pos="347 96 147 136" buttonText="Encrypt / Decrypt Text"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
