@@ -24,6 +24,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "ThreeKeys.hpp"
 #include "XOR.hpp"
+#include "Reverse String.hpp"
 //[/Headers]
 
 
@@ -50,6 +51,7 @@ public:
 
     void enterThreeKeys();
     void enterXOR();
+    void enterReverseAll();
 
     //[/UserMethods]
 
@@ -65,6 +67,8 @@ private:
 
     ThreeKeys threeKeysObject;
     XOR       xorObject;
+
+    ReverseString reverseStringObject;
 
     // simply added to engage tool tips
     TooltipWindow toolTips;

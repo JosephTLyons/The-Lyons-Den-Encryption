@@ -8,19 +8,6 @@
 
 #include "ThreeKeys.hpp"
 
-/*
- 
- --------------------- BUGS AND FIXES ------------------------------
- clean up code heavily
- --------------------- NEW FEATURES --------------------------------
- tool tips
- toggle option for secret input of message?
- option to generate random key for the user (use a 4th key to do this)
- -add copy and paste button for key
- -rename original copy and paste to output copy, input paste
- 
- */
-
 // main entry point for encryption of a JUCE string
 void ThreeKeys::encryptDecryptMessage(bool encryptionEnabled)
 {

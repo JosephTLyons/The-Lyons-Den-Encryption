@@ -16,6 +16,8 @@
 		789C4ADE97822E07D1EE2693 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288CD909C7F998DB6ECF6089 /* Carbon.framework */; };
 		7A0599574579B6231CBE08DD /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53C8104C9C9A6F2ACB97EF95 /* WebKit.framework */; };
 		7AD0D651A77D4490818DB560 /* juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF05A3D6F1AE3A21587D613E /* juce_events.mm */; };
+		99361D6D1E1E8DA200B20A07 /* The Lyons' Den Encryption Notes.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 99361D6C1E1E8DA200B20A07 /* The Lyons' Den Encryption Notes.rtf */; };
+		99361D701E1E8DE200B20A07 /* Reverse String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99361D6E1E1E8DE200B20A07 /* Reverse String.cpp */; };
 		9CB315CC0F6E614ECC78AE39 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 9BEDE2068EE5352008E6670A /* RecentFilesMenuTemplate.nib */; };
 		A441A6E8896540055D1553C3 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BBFE7E64E18DD03C2077478 /* Main.cpp */; };
 		B4D07F916E421D154FF9E0CB /* XOR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90911697060B6D87DB7B74A3 /* XOR.cpp */; };
@@ -493,6 +495,9 @@
 		97B32AA1E26A042C3B3CA461 /* juce_Point.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_Point.h; path = ../../../../Libraries/JUCE/modules/juce_graphics/geometry/juce_Point.h; sourceTree = SOURCE_ROOT; };
 		98413E065F21239DBB12B3D8 /* juce_WildcardFileFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_WildcardFileFilter.cpp; path = ../../../../Libraries/JUCE/modules/juce_core/files/juce_WildcardFileFilter.cpp; sourceTree = SOURCE_ROOT; };
 		9865353A191AF8086F0BBAE0 /* juce_RelativeParallelogram.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_RelativeParallelogram.cpp; path = ../../../../Libraries/JUCE/modules/juce_gui_basics/positioning/juce_RelativeParallelogram.cpp; sourceTree = SOURCE_ROOT; };
+		99361D6C1E1E8DA200B20A07 /* The Lyons' Den Encryption Notes.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = "The Lyons' Den Encryption Notes.rtf"; path = "../../Source/The Lyons' Den Encryption Notes.rtf"; sourceTree = "<group>"; };
+		99361D6E1E1E8DE200B20A07 /* Reverse String.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "Reverse String.cpp"; path = "../../Source/Reverse String.cpp"; sourceTree = "<group>"; };
+		99361D6F1E1E8DE200B20A07 /* Reverse String.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = "Reverse String.hpp"; path = "../../Source/Reverse String.hpp"; sourceTree = "<group>"; };
 		99539A1B7358D8208A1A2D67 /* juce_RuntimePermissions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_RuntimePermissions.h; path = ../../../../Libraries/JUCE/modules/juce_core/misc/juce_RuntimePermissions.h; sourceTree = SOURCE_ROOT; };
 		995675687CFF35958C39424C /* juce_ReadWriteLock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_ReadWriteLock.cpp; path = ../../../../Libraries/JUCE/modules/juce_core/threads/juce_ReadWriteLock.cpp; sourceTree = SOURCE_ROOT; };
 		996925DC00E9DC68B74D61F9 /* juce_TimeSliceThread.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_TimeSliceThread.cpp; path = ../../../../Libraries/JUCE/modules/juce_core/threads/juce_TimeSliceThread.cpp; sourceTree = SOURCE_ROOT; };
@@ -1537,6 +1542,7 @@
 		6EF8DF8D30C8BC6AAAAC5FF4 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				99361D6C1E1E8DA200B20A07 /* The Lyons' Den Encryption Notes.rtf */,
 				2BBFE7E64E18DD03C2077478 /* Main.cpp */,
 				B5DAF397BB88E2E4579EA281 /* MainComponent.h */,
 				72DC539F051CF76C8A63B6EA /* MainComponent.cpp */,
@@ -1546,6 +1552,8 @@
 				D2276B15F2093112FF1B3409 /* ThreeKeys.cpp */,
 				55123B2051A7EECDE89F49C4 /* XOR.hpp */,
 				90911697060B6D87DB7B74A3 /* XOR.cpp */,
+				99361D6F1E1E8DE200B20A07 /* Reverse String.hpp */,
+				99361D6E1E1E8DE200B20A07 /* Reverse String.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -2307,6 +2315,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CB315CC0F6E614ECC78AE39 /* RecentFilesMenuTemplate.nib in Resources */,
+				99361D6D1E1E8DA200B20A07 /* The Lyons' Den Encryption Notes.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2320,6 +2329,7 @@
 				A441A6E8896540055D1553C3 /* Main.cpp in Sources */,
 				3F8C1286FD588E4869719531 /* MainComponent.cpp in Sources */,
 				FD19B7D496D0D104B79C13FB /* EncryptionStrings.cpp in Sources */,
+				99361D701E1E8DE200B20A07 /* Reverse String.cpp in Sources */,
 				056D0A6AB1F9E61A6D9C6893 /* ThreeKeys.cpp in Sources */,
 				B4D07F916E421D154FF9E0CB /* XOR.cpp in Sources */,
 				E1308FCBE54808F8B22594EF /* juce_core.mm in Sources */,

@@ -60,6 +60,7 @@ MainComponent::MainComponent ()
     keyTextEditor->setScrollbarsShown (true);
     keyTextEditor->setCaretVisible (true);
     keyTextEditor->setPopupMenuEnabled (true);
+    keyTextEditor->setColour (TextEditor::backgroundColourId, Colours::white);
     keyTextEditor->setText (TRANS("Input Key Here"));
 
     addAndMakeVisible (encryptDecryptText = new TextButton ("new button"));
@@ -108,7 +109,9 @@ MainComponent::MainComponent ()
     encryptionType->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     encryptionType->addItem (TRANS("3Keys"), 1);
     encryptionType->addItem (TRANS("XOR"), 2);
-    encryptionType->addItem (TRANS("None"), 3);
+    encryptionType->addItem (TRANS("Reverse Word"), 3);
+    encryptionType->addItem (TRANS("Reverse All"), 4);
+    encryptionType->addItem (TRANS("None"), 5);
     encryptionType->addListener (this);
 
     addAndMakeVisible (label = new Label ("new label",
@@ -203,15 +206,15 @@ void MainComponent::resized()
 void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 {
     //[UserbuttonClicked_Pre]
-    
+
     String checkToSeeIfKeyTextExists = keyTextEditor->getText();
-    
+
     //[/UserbuttonClicked_Pre]
 
     if (buttonThatWasClicked == encryptDecryptText)
     {
         //[UserButtonCode_encryptDecryptText] -- add your button handler code here..
-        
+
         // make sure key has text in it (without this, the app will crash with no text in key)
         if (checkToSeeIfKeyTextExists.length() != 0)
         {
@@ -221,30 +224,35 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
             {
                 swapText->setEnabled(true);
             }
-            
+
             // set background color of keyTextEditor white
             keyTextEditor->setColour (TextEditor::backgroundColourId, Colours::white);
-            
+
             // Begin threeKeys
             if(encryptionType->getSelectedIdAsValue() == 1)
             {
                 enterThreeKeys();
             }
-            
+
             // Begin XOR
             if(encryptionType->getSelectedIdAsValue() == 2)
             {
                 //enterXOR(); - turned off until fixed
             }
-            
+
+            if(encryptionType->getSelectedIdAsValue() == 4)
+            {
+                enterReverseAll();
+            }
+
             // Begin none
-            if(encryptionType->getSelectedIdAsValue() == 3)
+            if(encryptionType->getSelectedIdAsValue() == 5)
             {
                 // Simply route input text to output text
                 outputTextEditor->setText(inputTextEditor->getText());
             }
         }
-        
+
         // Send message specifying what to do, which also serves as a temp key
         else
         {
@@ -252,7 +260,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
             keyTextEditor->setColour (TextEditor::backgroundColourId, Colour (0xffcd9292));
             keyTextEditor->setText("Please Enter a Key");
         }
-        
+
         //[/UserButtonCode_encryptDecryptText]
     }
     else if (buttonThatWasClicked == clearText)
@@ -352,6 +360,21 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
     if (comboBoxThatHasChanged == encryptionType)
     {
         //[UserComboBoxCode_encryptionType] -- add your combo box handling code here..
+
+        // these options don't require a key (reverse all and reverse word)
+        // so turn off keyTextEditor
+        if(encryptionType->getSelectedIdAsValue() == 3 ||
+           encryptionType->getSelectedIdAsValue() == 4)
+        {
+            keyTextEditor->setEnabled(false);
+            keyTextEditor->setText("No Key Needed");
+        }
+
+        else
+        {
+            keyTextEditor->setEnabled(true);
+        }
+
         //[/UserComboBoxCode_encryptionType]
     }
 
@@ -408,6 +431,21 @@ void MainComponent::enterXOR()
     outputTextEditor->setText(xorObject.getOutputString());
 }
 
+void MainComponent::enterReverseAll()
+{
+    // clear output and input to start with blank strings
+    reverseStringObject.clearStrings();
+    
+    // put text from text fields into the JUCE strings
+    reverseStringObject.getTextFromTextEditorsAndFillStrings(keyTextEditor->getText(), inputTextEditor->getText());
+    
+    // reverse string
+    reverseStringObject.reverseEntireString();
+
+    // set output text editor to new text
+    outputTextEditor->setText(reverseStringObject.getOutputString());
+}
+
 //[/MiscUserCode]
 
 
@@ -462,8 +500,8 @@ BEGIN_JUCER_METADATA
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <COMBOBOX name="encryptionType" id="a9555f9683e5e791" memberName="encryptionType"
             virtualName="" explicitFocusOrder="0" pos="347 64 147 24" tooltip="3Keys - My custom encryption that's more of a proof of concept than a secure system.  Recommended to not use for sensitive data.&#10;&#10;XOR - Standaard xclusive or / Bitwise Encryption"
-            editable="0" layout="33" items="3Keys&#10;XOR&#10;None" textWhenNonSelected="Encryption Type"
-            textWhenNoItems="(no choices)"/>
+            editable="0" layout="33" items="3Keys&#10;XOR&#10;Reverse Word&#10;Reverse All&#10;None"
+            textWhenNonSelected="Encryption Type" textWhenNoItems="(no choices)"/>
   <LABEL name="new label" id="393e5f12893a9600" memberName="label" virtualName=""
          explicitFocusOrder="0" pos="2 2 495 44" textCol="ffffffff" edTextCol="ff000000"
          edBkgCol="0" labelText="The Lyons' Den Encryption" editableSingleClick="0"
