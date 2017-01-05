@@ -74,7 +74,7 @@ MainComponent::MainComponent ()
     clearText->addListener (this);
 
     addAndMakeVisible (swapText = new TextButton ("new button"));
-    swapText->setTooltip (TRANS("Swap Text is handy for testing purposes, to reassure that the encryption is working both ways."));
+    swapText->setTooltip (TRANS("Swap Text is handy for using multiple encryption types back-to-back.  It is also used for testing purposes, to reassure that the encryption is working both ways."));
     swapText->setButtonText (TRANS("Swap Text"));
     swapText->setConnectedEdges (Button::ConnectedOnLeft | Button::ConnectedOnRight);
     swapText->addListener (this);
@@ -239,7 +239,14 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
             {
                 //enterXOR(); - turned off until fixed
             }
-
+            
+            // Begin Reverse Word
+            if(encryptionType->getSelectedIdAsValue() == 3)
+            {
+                enterReverseWord();
+            }
+            
+            // Begin Reverse All
             if(encryptionType->getSelectedIdAsValue() == 4)
             {
                 enterReverseAll();
@@ -367,7 +374,7 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
            encryptionType->getSelectedIdAsValue() == 4)
         {
             keyTextEditor->setEnabled(false);
-            keyTextEditor->setText("No Key Needed");
+            keyTextEditor->setText("No Key Needed For This Mode");
         }
 
         else
@@ -435,13 +442,28 @@ void MainComponent::enterReverseAll()
 {
     // clear output and input to start with blank strings
     reverseStringObject.clearStrings();
+
+    // put text from text fields into the JUCE strings
+    reverseStringObject.getTextFromTextEditorsAndFillStrings(keyTextEditor->getText(), inputTextEditor->getText());
+
+    // reverse string
+    reverseStringObject.reverseEntireString();
+
+    // set output text editor to new text
+    outputTextEditor->setText(reverseStringObject.getOutputString());
+}
+
+void MainComponent::enterReverseWord()
+{
+    // clear output and input to start with blank strings
+    reverseStringObject.clearStrings();
     
     // put text from text fields into the JUCE strings
     reverseStringObject.getTextFromTextEditorsAndFillStrings(keyTextEditor->getText(), inputTextEditor->getText());
     
-    // reverse string
-    reverseStringObject.reverseEntireString();
-
+    // reverse word
+    reverseStringObject.reverseWord();
+    
     // set output text editor to new text
     outputTextEditor->setText(reverseStringObject.getOutputString());
 }
@@ -482,7 +504,7 @@ BEGIN_JUCER_METADATA
               virtualName="" explicitFocusOrder="0" pos="347 332 147 45" buttonText="Clear Text"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="3966e441c06b33be" memberName="swapText"
-              virtualName="" explicitFocusOrder="0" pos="347 240 147 45" tooltip="Swap Text is handy for testing purposes, to reassure that the encryption is working both ways."
+              virtualName="" explicitFocusOrder="0" pos="347 240 147 45" tooltip="Swap Text is handy for using multiple encryption types back-to-back.  It is also used for testing purposes, to reassure that the encryption is working both ways."
               buttonText="Swap Text" connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TOGGLEBUTTON name="decryptionModeToggle" id="eb69d3a92b08680f" memberName="decryptionModeToggle"
                 virtualName="" explicitFocusOrder="0" pos="419 41 75 24" txtcol="ffffffff"

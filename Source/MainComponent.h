@@ -52,6 +52,7 @@ public:
     void enterThreeKeys();
     void enterXOR();
     void enterReverseAll();
+    void enterReverseWord();
 
     //[/UserMethods]
 

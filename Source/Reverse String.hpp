@@ -17,6 +17,7 @@ class ReverseString : public EncryptionStrings
 public:
     
     void reverseEntireString();
+    void reverseWord();
 };
 
 #endif /* Reverse_String_hpp */
