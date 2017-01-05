@@ -225,7 +225,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         // Begin XOR
         if(encryptionType->getSelectedIdAsValue() == 2)
         {
-            enterXOR();
+            //enterXOR(); - turned off until fixed
         }
 
         // Begin none
@@ -352,12 +352,20 @@ void MainComponent::enterThreeKeys()
 
     // put text from text fields into the JUCE strings
     threeKeysObject.getTextFromTextEditorsAndFillStrings(keyTextEditor->getText(), inputTextEditor->getText());
-
-    // encrypt / decrypt text
-    threeKeysObject.encryptDecryptMessage(encryptionModeToggle->getToggleState());
-
-    // set output text editor to new text
-    outputTextEditor->setText(threeKeysObject.getOutputString());
+    
+    // make sure key has text in it (without this, the app will crash with no text in key)
+    if(threeKeysObject.getKeyStringLength() != 0)
+    {
+        // encrypt / decrypt text
+        threeKeysObject.encryptDecryptMessage(encryptionModeToggle->getToggleState());
+        
+        // set output text editor to new text
+        outputTextEditor->setText(threeKeysObject.getOutputString());
+    }
+    
+    // Send message specifying what to do, which also serves as a temp key
+    else
+        keyTextEditor->setText("Please enter a key");
 }
 
 void MainComponent::enterXOR()

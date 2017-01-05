@@ -11,11 +11,8 @@
 /*
  
  --------------------- BUGS AND FIXES ------------------------------
- 
  clean up code heavily
  --------------------- NEW FEATURES --------------------------------
- 
- different types of encryption with drop down list
  tool tips
  toggle option for secret input of message?
  option to generate random key for the user (use a 4th key to do this)
