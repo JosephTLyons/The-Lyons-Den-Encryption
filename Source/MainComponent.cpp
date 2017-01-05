@@ -225,8 +225,13 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
                 swapText->setEnabled(true);
             }
 
-            // set background color of keyTextEditor white
-            keyTextEditor->setColour (TextEditor::backgroundColourId, Colours::white);
+            // set background color of keyTextEditor white as long as we aren't in
+            // one of the modes that doesn't use a key - key is greyed and disabled in these modes
+            if (encryptionType->getSelectedIdAsValue() != 3 &&
+                encryptionType->getSelectedIdAsValue() != 4)
+            {
+                keyTextEditor->setColour (TextEditor::backgroundColourId, Colours::white);
+            }
 
             // Begin threeKeys
             if(encryptionType->getSelectedIdAsValue() == 1)
@@ -374,12 +379,15 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
            encryptionType->getSelectedIdAsValue() == 4)
         {
             keyTextEditor->setEnabled(false);
+            keyTextEditor->setColour (TextEditor::backgroundColourId, Colours::grey);
             keyTextEditor->setText("No Key Needed For This Mode");
         }
 
         else
         {
             keyTextEditor->setEnabled(true);
+            keyTextEditor->setColour (TextEditor::backgroundColourId, Colours::white);
+            keyTextEditor->setText (TRANS("Input Key Here"));
         }
 
         //[/UserComboBoxCode_encryptionType]
