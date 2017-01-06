@@ -135,7 +135,7 @@ MainComponent::MainComponent ()
     addAndMakeVisible (historyLabel = new Label ("historyLabel",
                                                  TRANS("History")));
     historyLabel->setFont (Font (15.00f, Font::plain));
-    historyLabel->setJustificationType (Justification::centredLeft);
+    historyLabel->setJustificationType (Justification::centred);
     historyLabel->setEditable (false, false, false);
     historyLabel->setColour (Label::textColourId, Colours::white);
     historyLabel->setColour (TextEditor::textColourId, Colours::black);
@@ -221,7 +221,7 @@ void MainComponent::resized()
     encryptionType->setBounds (344, 77, 147, 24);
     productNameLabel->setBounds (1, -6, 646, 63);
     historyTextEditor->setBounds (495, 77, 147, 304);
-    historyLabel->setBounds (496, 53, 147, 24);
+    historyLabel->setBounds (491, 54, 147, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -617,10 +617,10 @@ BEGIN_JUCER_METADATA
               multiline="0" retKeyStartsLine="0" readonly="1" scrollbars="1"
               caret="0" popupmenu="1"/>
   <LABEL name="historyLabel" id="e8c5107a1bcb8805" memberName="historyLabel"
-         virtualName="" explicitFocusOrder="0" pos="496 53 147 24" textCol="ffffffff"
+         virtualName="" explicitFocusOrder="0" pos="491 54 147 24" textCol="ffffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="History" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
-         fontsize="15" bold="0" italic="0" justification="33"/>
+         fontsize="15" bold="0" italic="0" justification="36"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
