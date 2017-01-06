@@ -114,20 +114,38 @@ MainComponent::MainComponent ()
     encryptionType->addItem (TRANS("None"), 5);
     encryptionType->addListener (this);
 
-    addAndMakeVisible (label = new Label ("new label",
-                                          TRANS("The Lyons\' Den Encryption")));
-    label->setFont (Font ("Britannic Bold", 42.40f, Font::plain));
-    label->setJustificationType (Justification::centredLeft);
-    label->setEditable (false, false, false);
-    label->setColour (Label::textColourId, Colours::white);
-    label->setColour (TextEditor::textColourId, Colours::black);
-    label->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    addAndMakeVisible (productNameLabel = new Label ("productNameLabel",
+                                                     TRANS("The Lyons\' Den Encryption")));
+    productNameLabel->setFont (Font ("Britannic Bold", 42.40f, Font::plain));
+    productNameLabel->setJustificationType (Justification::centredLeft);
+    productNameLabel->setEditable (false, false, false);
+    productNameLabel->setColour (Label::textColourId, Colours::white);
+    productNameLabel->setColour (TextEditor::textColourId, Colours::black);
+    productNameLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
+    addAndMakeVisible (historyTextEditor = new TextEditor ("new text editor"));
+    historyTextEditor->setMultiLine (false);
+    historyTextEditor->setReturnKeyStartsNewLine (false);
+    historyTextEditor->setReadOnly (true);
+    historyTextEditor->setScrollbarsShown (true);
+    historyTextEditor->setCaretVisible (false);
+    historyTextEditor->setPopupMenuEnabled (true);
+    historyTextEditor->setText (String());
+
+    addAndMakeVisible (historyLabel = new Label ("historyLabel",
+                                                 TRANS("History")));
+    historyLabel->setFont (Font (15.00f, Font::plain));
+    historyLabel->setJustificationType (Justification::centredLeft);
+    historyLabel->setEditable (false, false, false);
+    historyLabel->setColour (Label::textColourId, Colours::white);
+    historyLabel->setColour (TextEditor::textColourId, Colours::black);
+    historyLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
 
     //[UserPreSize]
     //[/UserPreSize]
 
-    setSize (500, 385);
+    setSize (650, 385);
 
 
     //[Constructor] You can add your own custom stuff here..
@@ -141,8 +159,9 @@ MainComponent::MainComponent ()
     // start app with encryption mode on
     encryptionModeToggle->setToggleState(true, dontSendNotification);
 
-    // swap text button isn't available until first encryption click
-    swapText->setEnabled(false);
+    // make history editor capable of holding multiple lines
+    // so each new item can print to its own line
+    historyTextEditor->setMultiLine(true);
 
     //[/Constructor]
 }
@@ -163,7 +182,9 @@ MainComponent::~MainComponent()
     copyToClipboard = nullptr;
     pasteToInput = nullptr;
     encryptionType = nullptr;
-    label = nullptr;
+    productNameLabel = nullptr;
+    historyTextEditor = nullptr;
+    historyLabel = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -198,7 +219,9 @@ void MainComponent::resized()
     copyToClipboard->setBounds (347, 286, 73, 45);
     pasteToInput->setBounds (421, 286, 73, 45);
     encryptionType->setBounds (347, 64, 147, 24);
-    label->setBounds (2, 2, 495, 44);
+    productNameLabel->setBounds (2, 2, 495, 44);
+    historyTextEditor->setBounds (498, 64, 147, 314);
+    historyLabel->setBounds (498, 41, 147, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -206,9 +229,6 @@ void MainComponent::resized()
 void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 {
     //[UserbuttonClicked_Pre]
-
-    String checkToSeeIfKeyTextExists = keyTextEditor->getText();
-
     //[/UserbuttonClicked_Pre]
 
     if (buttonThatWasClicked == encryptDecryptText)
@@ -216,15 +236,8 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         //[UserButtonCode_encryptDecryptText] -- add your button handler code here..
 
         // make sure key has text in it (without this, the app will crash with no text in key)
-        if (checkToSeeIfKeyTextExists.length() != 0)
+        if (!keyTextEditor->isEmpty())
         {
-            // if swap text button is disabled, turn it on
-            // this only happens once
-            if (!swapText->isEnabled())
-            {
-                swapText->setEnabled(true);
-            }
-
             // set background color of keyTextEditor white as long as we aren't in
             // one of the modes that doesn't use a key - key is greyed and disabled in these modes
             if (encryptionType->getSelectedIdAsValue() != 3 &&
@@ -244,13 +257,13 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
             {
                 //enterXOR(); - turned off until fixed
             }
-            
+
             // Begin Reverse Word
             if(encryptionType->getSelectedIdAsValue() == 3)
             {
                 enterReverseWord();
             }
-            
+
             // Begin Reverse All
             if(encryptionType->getSelectedIdAsValue() == 4)
             {
@@ -273,6 +286,8 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
             keyTextEditor->setText("Please Enter a Key");
         }
 
+        printHistory();
+
         //[/UserButtonCode_encryptDecryptText]
     }
     else if (buttonThatWasClicked == clearText)
@@ -283,6 +298,10 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         keyTextEditor->clear();
         inputTextEditor->clear();
         outputTextEditor->clear();
+        historyTextEditor->clear();
+
+        // clear string
+        historyOfEncryption.clear();
 
         //[/UserButtonCode_clearText]
     }
@@ -293,19 +312,6 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         // swap field
         inputTextEditor->setText(outputTextEditor->getText());
         outputTextEditor->clear();
-
-        // swap encrypt / decrypt mode
-        if (encryptionModeToggle->getToggleState())
-        {
-            encryptionModeToggle->setToggleState(false, dontSendNotification);
-            decryptionModeToggle->setToggleState(true, dontSendNotification);
-        }
-
-        else
-        {
-            encryptionModeToggle->setToggleState(true, dontSendNotification);
-            decryptionModeToggle->setToggleState(false, dontSendNotification);
-        }
 
         //[/UserButtonCode_swapText]
     }
@@ -379,15 +385,15 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
            encryptionType->getSelectedIdAsValue() == 4)
         {
             keyTextEditor->setEnabled(false);
-            keyTextEditor->setColour (TextEditor::backgroundColourId, Colours::grey);
+            keyTextEditor->setColour(TextEditor::backgroundColourId, Colours::grey);
             keyTextEditor->setText("No Key Needed For This Mode");
         }
 
         else
         {
             keyTextEditor->setEnabled(true);
-            keyTextEditor->setColour (TextEditor::backgroundColourId, Colours::white);
-            keyTextEditor->setText (TRANS("Input Key Here"));
+            keyTextEditor->setColour(TextEditor::backgroundColourId, Colours::white);
+            keyTextEditor->setText(TRANS("Input Key Here"));
         }
 
         //[/UserComboBoxCode_encryptionType]
@@ -465,15 +471,83 @@ void MainComponent::enterReverseWord()
 {
     // clear output and input to start with blank strings
     reverseStringObject.clearStrings();
-    
+
     // put text from text fields into the JUCE strings
     reverseStringObject.getTextFromTextEditorsAndFillStrings(keyTextEditor->getText(), inputTextEditor->getText());
-    
+
     // reverse word
     reverseStringObject.reverseWord();
-    
+
     // set output text editor to new text
     outputTextEditor->setText(reverseStringObject.getOutputString());
+}
+
+void MainComponent::printHistory()
+{
+    // make sure key has test before recording history
+    if(!keyTextEditor->isEmpty())
+    {
+        if(swapText->isDown())
+            historyOfEncryption += "Text Swap\n";
+
+        // history for when encryption is turned on
+        if(encryptionModeToggle->getToggleState())
+        {
+            // check for threeKeys
+            if(encryptionType->getSelectedIdAsValue() == 1)
+            {
+                historyOfEncryption += "Three keys - Encrypt\n";
+            }
+
+            // check for XOR
+            if(encryptionType->getSelectedIdAsValue() == 2)
+            {
+                historyOfEncryption += "XOR\n";
+            }
+
+            // check Reverse Word
+            if(encryptionType->getSelectedIdAsValue() == 3)
+            {
+                historyOfEncryption += "Reverse Word\n";
+            }
+
+            // check Reverse String
+            if(encryptionType->getSelectedIdAsValue() == 4)
+            {
+                historyOfEncryption += "Reverse String\n";
+            }
+        }
+        // history for when encryption is turned off
+        else if(!encryptionModeToggle->getToggleState())
+        {
+            // check for three keys
+            if(encryptionType->getSelectedIdAsValue() == 1)
+            {
+                historyOfEncryption += "Three keys - Decrypt\n";
+            }
+
+            // check for XOR
+            if(encryptionType->getSelectedIdAsValue() == 2)
+            {
+                historyOfEncryption += "XOR\n";
+            }
+
+            // check Reverse Word
+            if(encryptionType->getSelectedIdAsValue() == 3)
+            {
+                historyOfEncryption += "Reverse Word\n";
+            }
+
+            // check Reverse String
+            if(encryptionType->getSelectedIdAsValue() == 4)
+            {
+                historyOfEncryption += "Reverse String\n";
+            }
+        }
+    }
+
+    // display updated history
+    historyTextEditor->setText(historyOfEncryption);
 }
 
 //[/MiscUserCode]
@@ -491,7 +565,7 @@ BEGIN_JUCER_METADATA
 <JUCER_COMPONENT documentType="Component" className="MainComponent" componentName=""
                  parentClasses="public Component" constructorParams="" variableInitialisers=""
                  snapPixels="3" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="1" initialWidth="500" initialHeight="385">
+                 fixedSize="1" initialWidth="650" initialHeight="385">
   <BACKGROUND backgroundColour="ff343434"/>
   <TEXTEDITOR name="inputTextEditor" id="cd5cf2088e4b8391" memberName="inputTextEditor"
               virtualName="" explicitFocusOrder="0" pos="7 96 336 136" initialText="Input Text Here"
@@ -532,11 +606,21 @@ BEGIN_JUCER_METADATA
             virtualName="" explicitFocusOrder="0" pos="347 64 147 24" tooltip="3Keys - My custom encryption that's more of a proof of concept than a secure system.  Recommended to not use for sensitive data.&#10;&#10;XOR - Standaard xclusive or / Bitwise Encryption"
             editable="0" layout="33" items="3Keys&#10;XOR&#10;Reverse Word&#10;Reverse All&#10;None"
             textWhenNonSelected="Encryption Type" textWhenNoItems="(no choices)"/>
-  <LABEL name="new label" id="393e5f12893a9600" memberName="label" virtualName=""
-         explicitFocusOrder="0" pos="2 2 495 44" textCol="ffffffff" edTextCol="ff000000"
-         edBkgCol="0" labelText="The Lyons' Den Encryption" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Britannic Bold"
-         fontsize="42.399999999999998579" bold="0" italic="0" justification="33"/>
+  <LABEL name="productNameLabel" id="393e5f12893a9600" memberName="productNameLabel"
+         virtualName="" explicitFocusOrder="0" pos="2 2 495 44" textCol="ffffffff"
+         edTextCol="ff000000" edBkgCol="0" labelText="The Lyons' Den Encryption"
+         editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
+         fontname="Britannic Bold" fontsize="42.399999999999998579" bold="0"
+         italic="0" justification="33"/>
+  <TEXTEDITOR name="new text editor" id="ca80c40e51273743" memberName="historyTextEditor"
+              virtualName="" explicitFocusOrder="0" pos="498 64 147 314" initialText=""
+              multiline="0" retKeyStartsLine="0" readonly="1" scrollbars="1"
+              caret="0" popupmenu="1"/>
+  <LABEL name="historyLabel" id="e8c5107a1bcb8805" memberName="historyLabel"
+         virtualName="" explicitFocusOrder="0" pos="498 41 147 24" textCol="ffffffff"
+         edTextCol="ff000000" edBkgCol="0" labelText="History" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
+         fontsize="15" bold="0" italic="0" justification="33"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

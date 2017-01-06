@@ -54,6 +54,8 @@ public:
     void enterReverseAll();
     void enterReverseWord();
 
+    void printHistory();
+
     //[/UserMethods]
 
     void paint (Graphics& g) override;
@@ -68,8 +70,8 @@ private:
 
     ThreeKeys threeKeysObject;
     XOR       xorObject;
-
     ReverseString reverseStringObject;
+    String historyOfEncryption;
 
     // simply added to engage tool tips
     TooltipWindow toolTips;
@@ -88,7 +90,9 @@ private:
     ScopedPointer<TextButton> copyToClipboard;
     ScopedPointer<TextButton> pasteToInput;
     ScopedPointer<ComboBox> encryptionType;
-    ScopedPointer<Label> label;
+    ScopedPointer<Label> productNameLabel;
+    ScopedPointer<TextEditor> historyTextEditor;
+    ScopedPointer<Label> historyLabel;
 
 
     //==============================================================================
