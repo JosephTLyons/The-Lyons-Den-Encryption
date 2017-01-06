@@ -57,6 +57,8 @@ public:
     void fillHistoryString();
     void printHistoryString();
 
+    void reverseHistoryString();
+
     //[/UserMethods]
 
     void paint (Graphics& g) override;
@@ -94,6 +96,7 @@ private:
     ScopedPointer<Label> productNameLabel;
     ScopedPointer<TextEditor> historyTextEditor;
     ScopedPointer<Label> historyLabel;
+    ScopedPointer<TextButton> reverseHistory;
 
 
     //==============================================================================

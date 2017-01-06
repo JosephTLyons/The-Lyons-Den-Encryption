@@ -53,7 +53,7 @@ MainComponent::MainComponent ()
     outputTextEditor->setPopupMenuEnabled (true);
     outputTextEditor->setText (TRANS("Text Output Displayed Here"));
 
-    addAndMakeVisible (keyTextEditor = new TextEditor ("keyText"));
+    addAndMakeVisible (keyTextEditor = new TextEditor ("keyTextEditor"));
     keyTextEditor->setMultiLine (true);
     keyTextEditor->setReturnKeyStartsNewLine (false);
     keyTextEditor->setReadOnly (false);
@@ -123,7 +123,7 @@ MainComponent::MainComponent ()
     productNameLabel->setColour (TextEditor::textColourId, Colours::black);
     productNameLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    addAndMakeVisible (historyTextEditor = new TextEditor ("new text editor"));
+    addAndMakeVisible (historyTextEditor = new TextEditor ("historyTextEditor"));
     historyTextEditor->setMultiLine (false);
     historyTextEditor->setReturnKeyStartsNewLine (false);
     historyTextEditor->setReadOnly (true);
@@ -140,6 +140,11 @@ MainComponent::MainComponent ()
     historyLabel->setColour (Label::textColourId, Colours::white);
     historyLabel->setColour (TextEditor::textColourId, Colours::black);
     historyLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
+    addAndMakeVisible (reverseHistory = new TextButton ("reverseHistory"));
+    reverseHistory->setButtonText (TRANS("Reverse History"));
+    reverseHistory->setConnectedEdges (Button::ConnectedOnLeft | Button::ConnectedOnRight);
+    reverseHistory->addListener (this);
 
 
     //[UserPreSize]
@@ -185,6 +190,7 @@ MainComponent::~MainComponent()
     productNameLabel = nullptr;
     historyTextEditor = nullptr;
     historyLabel = nullptr;
+    reverseHistory = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -219,9 +225,10 @@ void MainComponent::resized()
     copyToClipboard->setBounds (344, 291, 73, 44);
     pasteToInput->setBounds (418, 291, 73, 44);
     encryptionType->setBounds (344, 77, 147, 24);
-    productNameLabel->setBounds (1, -6, 646, 63);
-    historyTextEditor->setBounds (495, 77, 147, 304);
+    productNameLabel->setBounds (3, -6, 644, 63);
+    historyTextEditor->setBounds (495, 77, 147, 258);
     historyLabel->setBounds (491, 54, 147, 24);
+    reverseHistory->setBounds (495, 337, 147, 44);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -312,9 +319,9 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         // swap field
         inputTextEditor->setText(outputTextEditor->getText());
         outputTextEditor->clear();
-        
+
         historyOfEncryption += "Text Swap\n";
-        
+
         printHistoryString();
 
         //[/UserButtonCode_swapText]
@@ -369,6 +376,11 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 
         //[/UserButtonCode_pasteToInput]
     }
+    else if (buttonThatWasClicked == reverseHistory)
+    {
+        //[UserButtonCode_reverseHistory] -- add your button handler code here..
+        //[/UserButtonCode_reverseHistory]
+    }
 
     //[UserbuttonClicked_Post]
     //[/UserbuttonClicked_Post]
@@ -392,7 +404,7 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
             keyTextEditor->setEnabled(false);
             keyTextEditor->setColour(TextEditor::backgroundColourId, Colours::grey);
             keyTextEditor->setText("No Key Needed For This Mode");
-            
+
             // turn off modes
             encryptionModeToggle->setEnabled(false);
             decryptionModeToggle->setEnabled(false);
@@ -404,7 +416,7 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
             keyTextEditor->setEnabled(true);
             keyTextEditor->setColour(TextEditor::backgroundColourId, Colours::white);
             keyTextEditor->setText(TRANS("Input Key Here"));
-            
+
             // turn on modes
             encryptionModeToggle->setEnabled(true);
             decryptionModeToggle->setEnabled(true);
@@ -557,7 +569,7 @@ void MainComponent::fillHistoryString()
             }
         }
     }
-    
+
     printHistoryString();
 }
 
@@ -565,6 +577,22 @@ void MainComponent::printHistoryString()
 {
     // display updated history
     historyTextEditor->setText(historyOfEncryption);
+}
+
+void MainComponent::reverseHistoryString()
+{
+    String tempStringSegmentHolder;
+    String tempHolderOfReversedSegments;
+
+    for(int i = 0; i < historyOfEncryption.length(); i++)
+    {
+
+
+        if(historyOfEncryption[i] == '\n')
+        {
+
+        }
+    }
 }
 
 //[/MiscUserCode]
@@ -592,7 +620,7 @@ BEGIN_JUCER_METADATA
               virtualName="" explicitFocusOrder="0" pos="4 245 336 136" initialText="Text Output Displayed Here"
               multiline="1" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="keyText" id="b5d11893eb6accf3" memberName="keyTextEditor"
+  <TEXTEDITOR name="keyTextEditor" id="b5d11893eb6accf3" memberName="keyTextEditor"
               virtualName="" explicitFocusOrder="0" pos="4 61 336 40" bkgcol="ffffffff"
               initialText="Input Key Here" multiline="1" retKeyStartsLine="0"
               readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
@@ -624,13 +652,13 @@ BEGIN_JUCER_METADATA
             editable="0" layout="33" items="3Keys&#10;XOR&#10;Reverse Word&#10;Reverse All&#10;None"
             textWhenNonSelected="Encryption Type" textWhenNoItems="(no choices)"/>
   <LABEL name="productNameLabel" id="393e5f12893a9600" memberName="productNameLabel"
-         virtualName="" explicitFocusOrder="0" pos="1 -6 646 63" textCol="bbffffff"
+         virtualName="" explicitFocusOrder="0" pos="3 -6 644 63" textCol="bbffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="The Lyons' Den Encryption"
          editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
          fontname="Britannic Bold" fontsize="58.399999999999998579" bold="0"
          italic="0" justification="33"/>
-  <TEXTEDITOR name="new text editor" id="ca80c40e51273743" memberName="historyTextEditor"
-              virtualName="" explicitFocusOrder="0" pos="495 77 147 304" initialText=""
+  <TEXTEDITOR name="historyTextEditor" id="ca80c40e51273743" memberName="historyTextEditor"
+              virtualName="" explicitFocusOrder="0" pos="495 77 147 258" initialText=""
               multiline="0" retKeyStartsLine="0" readonly="1" scrollbars="1"
               caret="0" popupmenu="1"/>
   <LABEL name="historyLabel" id="e8c5107a1bcb8805" memberName="historyLabel"
@@ -638,6 +666,9 @@ BEGIN_JUCER_METADATA
          edTextCol="ff000000" edBkgCol="0" labelText="History" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="36"/>
+  <TEXTBUTTON name="reverseHistory" id="51ee3e70c2c001fa" memberName="reverseHistory"
+              virtualName="" explicitFocusOrder="0" pos="495 337 147 44" buttonText="Reverse History"
+              connectedEdges="3" needsCallback="1" radioGroupId="0"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
