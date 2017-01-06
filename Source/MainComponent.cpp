@@ -116,7 +116,7 @@ MainComponent::MainComponent ()
 
     addAndMakeVisible (productNameLabel = new Label ("productNameLabel",
                                                      TRANS("The Lyons\' Den Encryption")));
-    productNameLabel->setFont (Font ("Britannic Bold", 42.40f, Font::plain));
+    productNameLabel->setFont (Font ("Britannic Bold", 58.40f, Font::plain));
     productNameLabel->setJustificationType (Justification::centredLeft);
     productNameLabel->setEditable (false, false, false);
     productNameLabel->setColour (Label::textColourId, Colours::white);
@@ -145,7 +145,7 @@ MainComponent::MainComponent ()
     //[UserPreSize]
     //[/UserPreSize]
 
-    setSize (650, 385);
+    setSize (646, 385);
 
 
     //[Constructor] You can add your own custom stuff here..
@@ -208,20 +208,20 @@ void MainComponent::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    inputTextEditor->setBounds (7, 96, 336, 136);
-    outputTextEditor->setBounds (7, 240, 336, 136);
-    keyTextEditor->setBounds (7, 48, 336, 40);
-    encryptDecryptText->setBounds (347, 96, 147, 136);
-    clearText->setBounds (347, 332, 147, 45);
-    swapText->setBounds (347, 240, 147, 45);
-    decryptionModeToggle->setBounds (419, 41, 75, 24);
-    encryptionModeToggle->setBounds (347, 41, 75, 24);
-    copyToClipboard->setBounds (347, 286, 73, 45);
-    pasteToInput->setBounds (421, 286, 73, 45);
-    encryptionType->setBounds (347, 64, 147, 24);
-    productNameLabel->setBounds (2, 2, 495, 44);
-    historyTextEditor->setBounds (498, 64, 147, 314);
-    historyLabel->setBounds (498, 41, 147, 24);
+    inputTextEditor->setBounds (4, 105, 336, 136);
+    outputTextEditor->setBounds (4, 245, 336, 136);
+    keyTextEditor->setBounds (4, 61, 336, 40);
+    encryptDecryptText->setBounds (344, 105, 147, 136);
+    clearText->setBounds (344, 337, 147, 44);
+    swapText->setBounds (344, 245, 147, 44);
+    decryptionModeToggle->setBounds (416, 54, 75, 24);
+    encryptionModeToggle->setBounds (344, 54, 75, 24);
+    copyToClipboard->setBounds (344, 291, 73, 44);
+    pasteToInput->setBounds (418, 291, 73, 44);
+    encryptionType->setBounds (344, 77, 147, 24);
+    productNameLabel->setBounds (1, -6, 646, 63);
+    historyTextEditor->setBounds (495, 77, 147, 304);
+    historyLabel->setBounds (496, 53, 147, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -565,59 +565,59 @@ BEGIN_JUCER_METADATA
 <JUCER_COMPONENT documentType="Component" className="MainComponent" componentName=""
                  parentClasses="public Component" constructorParams="" variableInitialisers=""
                  snapPixels="3" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="1" initialWidth="650" initialHeight="385">
+                 fixedSize="1" initialWidth="646" initialHeight="385">
   <BACKGROUND backgroundColour="ff343434"/>
   <TEXTEDITOR name="inputTextEditor" id="cd5cf2088e4b8391" memberName="inputTextEditor"
-              virtualName="" explicitFocusOrder="0" pos="7 96 336 136" initialText="Input Text Here"
+              virtualName="" explicitFocusOrder="0" pos="4 105 336 136" initialText="Input Text Here"
               multiline="1" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <TEXTEDITOR name="outputTextEditor" id="20825e2d4e657e11" memberName="outputTextEditor"
-              virtualName="" explicitFocusOrder="0" pos="7 240 336 136" initialText="Text Output Displayed Here"
+              virtualName="" explicitFocusOrder="0" pos="4 245 336 136" initialText="Text Output Displayed Here"
               multiline="1" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <TEXTEDITOR name="keyText" id="b5d11893eb6accf3" memberName="keyTextEditor"
-              virtualName="" explicitFocusOrder="0" pos="7 48 336 40" bkgcol="ffffffff"
+              virtualName="" explicitFocusOrder="0" pos="4 61 336 40" bkgcol="ffffffff"
               initialText="Input Key Here" multiline="1" retKeyStartsLine="0"
               readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
   <TEXTBUTTON name="new button" id="3bbb40b8fcf75027" memberName="encryptDecryptText"
-              virtualName="" explicitFocusOrder="0" pos="347 96 147 136" buttonText="Encrypt / Decrypt Text"
+              virtualName="" explicitFocusOrder="0" pos="344 105 147 136" buttonText="Encrypt / Decrypt Text"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="c83123a33c17aff6" memberName="clearText"
-              virtualName="" explicitFocusOrder="0" pos="347 332 147 45" buttonText="Clear Text"
+              virtualName="" explicitFocusOrder="0" pos="344 337 147 44" buttonText="Clear Text"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="3966e441c06b33be" memberName="swapText"
-              virtualName="" explicitFocusOrder="0" pos="347 240 147 45" tooltip="Swap Text is handy for using multiple encryption types back-to-back.  It is also used for testing purposes, to reassure that the encryption is working both ways."
+              virtualName="" explicitFocusOrder="0" pos="344 245 147 44" tooltip="Swap Text is handy for using multiple encryption types back-to-back.  It is also used for testing purposes, to reassure that the encryption is working both ways."
               buttonText="Swap Text" connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TOGGLEBUTTON name="decryptionModeToggle" id="eb69d3a92b08680f" memberName="decryptionModeToggle"
-                virtualName="" explicitFocusOrder="0" pos="419 41 75 24" txtcol="ffffffff"
+                virtualName="" explicitFocusOrder="0" pos="416 54 75 24" txtcol="ffffffff"
                 buttonText="Decrypt" connectedEdges="0" needsCallback="1" radioGroupId="0"
                 state="0"/>
   <TOGGLEBUTTON name="encryptionModeToggle" id="feb87990a59e0b0d" memberName="encryptionModeToggle"
-                virtualName="" explicitFocusOrder="0" pos="347 41 75 24" txtcol="ffffffff"
+                virtualName="" explicitFocusOrder="0" pos="344 54 75 24" txtcol="ffffffff"
                 buttonText="Encrypt" connectedEdges="0" needsCallback="1" radioGroupId="0"
                 state="0"/>
   <TEXTBUTTON name="copyToClipboard" id="f46788f09ba91384" memberName="copyToClipboard"
-              virtualName="" explicitFocusOrder="0" pos="347 286 73 45" buttonText="Copy"
+              virtualName="" explicitFocusOrder="0" pos="344 291 73 44" buttonText="Copy"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="pasteToInput" id="7be5641456548145" memberName="pasteToInput"
-              virtualName="" explicitFocusOrder="0" pos="421 286 73 45" buttonText="Paste"
+              virtualName="" explicitFocusOrder="0" pos="418 291 73 44" buttonText="Paste"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <COMBOBOX name="encryptionType" id="a9555f9683e5e791" memberName="encryptionType"
-            virtualName="" explicitFocusOrder="0" pos="347 64 147 24" tooltip="3Keys - My custom encryption that's more of a proof of concept than a secure system.  Recommended to not use for sensitive data.&#10;&#10;XOR - Standaard xclusive or / Bitwise Encryption"
+            virtualName="" explicitFocusOrder="0" pos="344 77 147 24" tooltip="3Keys - My custom encryption that's more of a proof of concept than a secure system.  Recommended to not use for sensitive data.&#10;&#10;XOR - Standaard xclusive or / Bitwise Encryption"
             editable="0" layout="33" items="3Keys&#10;XOR&#10;Reverse Word&#10;Reverse All&#10;None"
             textWhenNonSelected="Encryption Type" textWhenNoItems="(no choices)"/>
   <LABEL name="productNameLabel" id="393e5f12893a9600" memberName="productNameLabel"
-         virtualName="" explicitFocusOrder="0" pos="2 2 495 44" textCol="ffffffff"
+         virtualName="" explicitFocusOrder="0" pos="1 -6 646 63" textCol="ffffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="The Lyons' Den Encryption"
          editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
-         fontname="Britannic Bold" fontsize="42.399999999999998579" bold="0"
+         fontname="Britannic Bold" fontsize="58.399999999999998579" bold="0"
          italic="0" justification="33"/>
   <TEXTEDITOR name="new text editor" id="ca80c40e51273743" memberName="historyTextEditor"
-              virtualName="" explicitFocusOrder="0" pos="498 64 147 314" initialText=""
+              virtualName="" explicitFocusOrder="0" pos="495 77 147 304" initialText=""
               multiline="0" retKeyStartsLine="0" readonly="1" scrollbars="1"
               caret="0" popupmenu="1"/>
   <LABEL name="historyLabel" id="e8c5107a1bcb8805" memberName="historyLabel"
-         virtualName="" explicitFocusOrder="0" pos="498 41 147 24" textCol="ffffffff"
+         virtualName="" explicitFocusOrder="0" pos="496 53 147 24" textCol="ffffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="History" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
