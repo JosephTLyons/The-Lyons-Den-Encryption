@@ -286,7 +286,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
             keyTextEditor->setText("Please Enter a Key");
         }
 
-        printHistory();
+        fillHistoryString();
 
         //[/UserButtonCode_encryptDecryptText]
     }
@@ -312,6 +312,10 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         // swap field
         inputTextEditor->setText(outputTextEditor->getText());
         outputTextEditor->clear();
+        
+        historyOfEncryption += "Text Swap\n";
+        
+        printHistoryString();
 
         //[/UserButtonCode_swapText]
     }
@@ -379,8 +383,8 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
     {
         //[UserComboBoxCode_encryptionType] -- add your combo box handling code here..
 
-        // these options don't require a key (reverse all and reverse word)
-        // so turn off keyTextEditor
+        // these options don't require a key or encryption modes (reverse all and reverse word)
+        // so turn off keyTextEditor and encryption mode
         if(encryptionType->getSelectedIdAsValue() == 3 ||
            encryptionType->getSelectedIdAsValue() == 4)
         {
@@ -492,14 +496,12 @@ void MainComponent::enterReverseWord()
     outputTextEditor->setText(reverseStringObject.getOutputString());
 }
 
-void MainComponent::printHistory()
+void MainComponent::fillHistoryString()
 {
-    // make sure key has test before recording history
+    // make sure key has text before recording history, otherwise
+    // you are displaying history of encryption that didn't happen
     if(!keyTextEditor->isEmpty())
     {
-        if(swapText->isDown())
-            historyOfEncryption += "Text Swap\n";
-
         // history for when encryption is turned on
         if(encryptionModeToggle->getToggleState())
         {
@@ -555,7 +557,12 @@ void MainComponent::printHistory()
             }
         }
     }
+    
+    printHistoryString();
+}
 
+void MainComponent::printHistoryString()
+{
     // display updated history
     historyTextEditor->setText(historyOfEncryption);
 }

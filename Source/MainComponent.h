@@ -54,7 +54,8 @@ public:
     void enterReverseAll();
     void enterReverseWord();
 
-    void printHistory();
+    void fillHistoryString();
+    void printHistoryString();
 
     //[/UserMethods]
 
