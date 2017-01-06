@@ -5,6 +5,8 @@
               jucerVersion="4.3.0">
   <MAINGROUP id="QUAeuz" name="JTL Encryption GUI">
     <GROUP id="{A0B72926-6562-8929-D47E-0AE499415488}" name="Source">
+      <FILE id="NfnKIC" name="The Lyons' Den Encryption Notes.rtf" compile="0"
+            resource="1" file="Source/The Lyons' Den Encryption Notes.rtf"/>
       <FILE id="dmBtWi" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="rIIQA6" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="nownO4" name="MainComponent.cpp" compile="1" resource="0"
@@ -17,6 +19,10 @@
       <FILE id="J8UreX" name="ThreeKeys.cpp" compile="1" resource="0" file="Source/ThreeKeys.cpp"/>
       <FILE id="WO7rjk" name="XOR.hpp" compile="0" resource="0" file="Source/XOR.hpp"/>
       <FILE id="zAOs2Y" name="XOR.cpp" compile="1" resource="0" file="Source/XOR.cpp"/>
+      <FILE id="FPatxC" name="Reverse String.hpp" compile="0" resource="0"
+            file="Source/Reverse String.hpp"/>
+      <FILE id="TP6fhQ" name="Reverse String.cpp" compile="1" resource="0"
+            file="Source/Reverse String.cpp"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

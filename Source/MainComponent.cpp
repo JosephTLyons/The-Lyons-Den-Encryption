@@ -119,7 +119,7 @@ MainComponent::MainComponent ()
     productNameLabel->setFont (Font ("Britannic Bold", 58.40f, Font::plain));
     productNameLabel->setJustificationType (Justification::centredLeft);
     productNameLabel->setEditable (false, false, false);
-    productNameLabel->setColour (Label::textColourId, Colours::white);
+    productNameLabel->setColour (Label::textColourId, Colour (0xbbffffff));
     productNameLabel->setColour (TextEditor::textColourId, Colours::black);
     productNameLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
@@ -384,16 +384,26 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
         if(encryptionType->getSelectedIdAsValue() == 3 ||
            encryptionType->getSelectedIdAsValue() == 4)
         {
+            // disable key input
             keyTextEditor->setEnabled(false);
             keyTextEditor->setColour(TextEditor::backgroundColourId, Colours::grey);
             keyTextEditor->setText("No Key Needed For This Mode");
+            
+            // turn off modes
+            encryptionModeToggle->setEnabled(false);
+            decryptionModeToggle->setEnabled(false);
         }
 
         else
         {
+            // enable key input
             keyTextEditor->setEnabled(true);
             keyTextEditor->setColour(TextEditor::backgroundColourId, Colours::white);
             keyTextEditor->setText(TRANS("Input Key Here"));
+            
+            // turn on modes
+            encryptionModeToggle->setEnabled(true);
+            decryptionModeToggle->setEnabled(true);
         }
 
         //[/UserComboBoxCode_encryptionType]
@@ -514,7 +524,7 @@ void MainComponent::printHistory()
             // check Reverse String
             if(encryptionType->getSelectedIdAsValue() == 4)
             {
-                historyOfEncryption += "Reverse String\n";
+                historyOfEncryption += "Reverse All\n";
             }
         }
         // history for when encryption is turned off
@@ -541,7 +551,7 @@ void MainComponent::printHistory()
             // check Reverse String
             if(encryptionType->getSelectedIdAsValue() == 4)
             {
-                historyOfEncryption += "Reverse String\n";
+                historyOfEncryption += "Reverse All\n";
             }
         }
     }
@@ -607,7 +617,7 @@ BEGIN_JUCER_METADATA
             editable="0" layout="33" items="3Keys&#10;XOR&#10;Reverse Word&#10;Reverse All&#10;None"
             textWhenNonSelected="Encryption Type" textWhenNoItems="(no choices)"/>
   <LABEL name="productNameLabel" id="393e5f12893a9600" memberName="productNameLabel"
-         virtualName="" explicitFocusOrder="0" pos="1 -6 646 63" textCol="ffffffff"
+         virtualName="" explicitFocusOrder="0" pos="1 -6 646 63" textCol="bbffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="The Lyons' Den Encryption"
          editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
          fontname="Britannic Bold" fontsize="58.399999999999998579" bold="0"
