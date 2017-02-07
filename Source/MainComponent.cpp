@@ -7,7 +7,7 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 4.3.0
+  Created with Projucer version: 4.3.1
 
   ------------------------------------------------------------------------------
 
@@ -18,9 +18,6 @@
 */
 
 //[Headers] You can add your own extra header files here...
-
-#include "ThreeKeys.hpp"
-
 //[/Headers]
 
 #include "MainComponent.h"
@@ -102,7 +99,11 @@ MainComponent::MainComponent ()
     addAndMakeVisible (encryptionType = new ComboBox ("encryptionType"));
     encryptionType->setTooltip (TRANS("3Keys - My custom encryption that\'s more of a proof of concept than a secure system.  Recommended to not use for sensitive data.\n"
     "\n"
-    "XOR - Standaard xclusive or / Bitwise Encryption"));
+    "XOR - Standaard xclusive or / Bitwise Encryption\n"
+    "\n"
+    "Reverse Word - Reverses all the letters in each word in the string\n"
+    "\n"
+    "Reverse All - Reverses the whole string"));
     encryptionType->setEditableText (false);
     encryptionType->setJustificationType (Justification::centredLeft);
     encryptionType->setTextWhenNothingSelected (TRANS("Encryption Type"));
@@ -124,8 +125,8 @@ MainComponent::MainComponent ()
     productNameLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (historyTextEditor = new TextEditor ("historyTextEditor"));
-    historyTextEditor->setMultiLine (false);
-    historyTextEditor->setReturnKeyStartsNewLine (false);
+    historyTextEditor->setMultiLine (true);
+    historyTextEditor->setReturnKeyStartsNewLine (true);
     historyTextEditor->setReadOnly (true);
     historyTextEditor->setScrollbarsShown (true);
     historyTextEditor->setCaretVisible (false);
@@ -163,10 +164,6 @@ MainComponent::MainComponent ()
 
     // start app with encryption mode on
     encryptionModeToggle->setToggleState(true, dontSendNotification);
-
-    // make history editor capable of holding multiple lines
-    // so each new item can print to its own line
-    historyTextEditor->setMultiLine(true);
 
     //[/Constructor]
 }
@@ -648,7 +645,7 @@ BEGIN_JUCER_METADATA
               virtualName="" explicitFocusOrder="0" pos="418 291 73 44" buttonText="Paste"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <COMBOBOX name="encryptionType" id="a9555f9683e5e791" memberName="encryptionType"
-            virtualName="" explicitFocusOrder="0" pos="344 77 147 24" tooltip="3Keys - My custom encryption that's more of a proof of concept than a secure system.  Recommended to not use for sensitive data.&#10;&#10;XOR - Standaard xclusive or / Bitwise Encryption"
+            virtualName="" explicitFocusOrder="0" pos="344 77 147 24" tooltip="3Keys - My custom encryption that's more of a proof of concept than a secure system.  Recommended to not use for sensitive data.&#10;&#10;XOR - Standaard xclusive or / Bitwise Encryption&#10;&#10;Reverse Word - Reverses all the letters in each word in the string&#10;&#10;Reverse All - Reverses the whole string"
             editable="0" layout="33" items="3Keys&#10;XOR&#10;Reverse Word&#10;Reverse All&#10;None"
             textWhenNonSelected="Encryption Type" textWhenNoItems="(no choices)"/>
   <LABEL name="productNameLabel" id="393e5f12893a9600" memberName="productNameLabel"
@@ -659,7 +656,7 @@ BEGIN_JUCER_METADATA
          italic="0" justification="33"/>
   <TEXTEDITOR name="historyTextEditor" id="ca80c40e51273743" memberName="historyTextEditor"
               virtualName="" explicitFocusOrder="0" pos="495 77 147 258" initialText=""
-              multiline="0" retKeyStartsLine="0" readonly="1" scrollbars="1"
+              multiline="1" retKeyStartsLine="1" readonly="1" scrollbars="1"
               caret="0" popupmenu="1"/>
   <LABEL name="historyLabel" id="e8c5107a1bcb8805" memberName="historyLabel"
          virtualName="" explicitFocusOrder="0" pos="491 54 147 24" textCol="ffffffff"
