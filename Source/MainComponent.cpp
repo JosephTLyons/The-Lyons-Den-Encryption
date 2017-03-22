@@ -18,6 +18,9 @@
 */
 
 //[Headers] You can add your own extra header files here...
+
+#include <vector>
+
 //[/Headers]
 
 #include "MainComponent.h"
@@ -290,7 +293,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
             keyTextEditor->setText("Please Enter a Key");
         }
 
-        fillHistoryString();
+        fillHistoryVector();
 
         //[/UserButtonCode_encryptDecryptText]
     }
@@ -305,7 +308,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         historyTextEditor->clear();
 
         // clear string
-        historyOfEncryption.clear();
+        vector<String>().swap(historyVector);
 
         //[/UserButtonCode_clearText]
     }
@@ -317,8 +320,11 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         inputTextEditor->setText(outputTextEditor->getText());
         outputTextEditor->clear();
 
-        historyOfEncryption += "Text Swap\n";
-
+        historyVector.push_back("Text Swap\n");
+        
+        // Clear whole string and refill with new string with vector
+        finalHistoryString.clear();
+        fillFinalHistoryString();
         printHistoryString();
 
         //[/UserButtonCode_swapText]
@@ -376,6 +382,9 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == reverseHistory)
     {
         //[UserButtonCode_reverseHistory] -- add your button handler code here..
+        
+        reverseHistoryVector();
+        
         //[/UserButtonCode_reverseHistory]
     }
 
@@ -505,8 +514,18 @@ void MainComponent::enterReverseWord()
     outputTextEditor->setText(reverseStringObject.getOutputString());
 }
 
-void MainComponent::fillHistoryString()
+void MainComponent::fillHistoryVector()
 {
+    String encrypt     = "encrypt\n";
+    String decrypt     = "decrypt\n";
+    
+    String threeKeys   = "Three Keys - ";
+    String XOR         = "XOR - ";
+    String reverseWord = "Reverse Word\n";
+    String reverseAll  = "Reverse All\n";
+    
+    String tempString;
+    
     // make sure key has text before recording history, otherwise
     // you are displaying history of encryption that didn't happen
     if(!keyTextEditor->isEmpty())
@@ -517,25 +536,27 @@ void MainComponent::fillHistoryString()
             // check for threeKeys
             if(encryptionType->getSelectedIdAsValue() == 1)
             {
-                historyOfEncryption += "Three keys - Encrypt\n";
+                tempString = threeKeys + encrypt;
+                historyVector.push_back(tempString);
             }
 
             // check for XOR
             if(encryptionType->getSelectedIdAsValue() == 2)
             {
-                historyOfEncryption += "XOR\n";
+                tempString = XOR + encrypt;
+                historyVector.push_back(tempString);
             }
 
             // check Reverse Word
             if(encryptionType->getSelectedIdAsValue() == 3)
             {
-                historyOfEncryption += "Reverse Word\n";
+                historyVector.push_back(reverseWord);
             }
 
             // check Reverse String
             if(encryptionType->getSelectedIdAsValue() == 4)
             {
-                historyOfEncryption += "Reverse All\n";
+                historyVector.push_back(reverseAll);
             }
         }
         // history for when encryption is turned off
@@ -544,52 +565,67 @@ void MainComponent::fillHistoryString()
             // check for three keys
             if(encryptionType->getSelectedIdAsValue() == 1)
             {
-                historyOfEncryption += "Three keys - Decrypt\n";
+                tempString = threeKeys + decrypt;
+                historyVector.push_back(tempString);
             }
 
             // check for XOR
             if(encryptionType->getSelectedIdAsValue() == 2)
             {
-                historyOfEncryption += "XOR\n";
+                tempString = XOR + decrypt;
+                historyVector.push_back(tempString);
             }
 
             // check Reverse Word
             if(encryptionType->getSelectedIdAsValue() == 3)
             {
-                historyOfEncryption += "Reverse Word\n";
+                historyVector.push_back(reverseWord);
             }
 
             // check Reverse String
             if(encryptionType->getSelectedIdAsValue() == 4)
             {
-                historyOfEncryption += "Reverse All\n";
+                historyVector.push_back(reverseAll);
             }
         }
     }
 
+    // Clear whole string and refill with new string with vector
+    finalHistoryString.clear();
+    fillFinalHistoryString();
     printHistoryString();
+}
+
+void MainComponent::reverseHistoryVector()
+{
+    vector<String> reversedVector(historyVector.size());
+    int arrayCounter = 0;
+    
+    for (int i = historyVector.size() - 1; i >= 0; i--)
+    {
+        reversedVector[arrayCounter++] = historyVector[i];
+    }
+    
+    historyVector = reversedVector;
+    
+    // Clear whole string and refill with new string with vector
+    finalHistoryString.clear();
+    fillFinalHistoryString();
+    printHistoryString();
+}
+
+void MainComponent::fillFinalHistoryString()
+{
+    for(int i = 0; i < historyVector.size(); i++)
+    {
+        finalHistoryString += historyVector[i];
+    }
 }
 
 void MainComponent::printHistoryString()
 {
     // display updated history
-    historyTextEditor->setText(historyOfEncryption);
-}
-
-void MainComponent::reverseHistoryString()
-{
-    String tempStringSegmentHolder;
-    String tempHolderOfReversedSegments;
-
-    for(int i = 0; i < historyOfEncryption.length(); i++)
-    {
-
-
-        if(historyOfEncryption[i] == '\n')
-        {
-
-        }
-    }
+    historyTextEditor->setText(finalHistoryString);
 }
 
 //[/MiscUserCode]

@@ -54,7 +54,9 @@ public:
     void enterReverseAll();
     void enterReverseWord();
 
-    void fillHistoryString();
+    void fillHistoryVector();
+    void reverseHistoryVector();
+    void fillFinalHistoryString();
     void printHistoryString();
 
     void reverseHistoryString();
@@ -74,7 +76,9 @@ private:
     ThreeKeys threeKeysObject;
     XOR       xorObject;
     ReverseString reverseStringObject;
-    String historyOfEncryption;
+    
+    vector<String> historyVector;
+    String finalHistoryString;
 
     // simply added to engage tool tips
     TooltipWindow toolTips;
